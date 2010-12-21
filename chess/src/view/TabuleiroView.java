@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import model.Bispo;
+import model.Cavalo;
 import model.CorPeca;
 import model.ListenerPeca;
 import model.Peao;
@@ -58,6 +60,10 @@ public class TabuleiroView extends JPanel implements ListenerPeca{
 		this.addPeca(new Peao(6, 7, CorPeca.Branca, this));
 		this.addPeca(new Torre(7, 0, CorPeca.Branca, this));
 		this.addPeca(new Torre(7, 7, CorPeca.Branca, this));
+		this.addPeca(new Cavalo(7, 1, CorPeca.Branca, this));
+		this.addPeca(new Cavalo(7, 6, CorPeca.Branca, this));
+		this.addPeca(new Bispo(7, 2, CorPeca.Branca, this));
+		this.addPeca(new Bispo(7, 5, CorPeca.Branca, this));
 		
 		//Adiciona peças pretas
 		this.addPeca(new Peao(1, 0, CorPeca.Preta, this));
@@ -70,6 +76,10 @@ public class TabuleiroView extends JPanel implements ListenerPeca{
 		this.addPeca(new Peao(1, 7, CorPeca.Preta, this));
 		this.addPeca(new Torre(0, 0, CorPeca.Preta, this));
 		this.addPeca(new Torre(0, 7, CorPeca.Preta, this));
+		this.addPeca(new Cavalo(0, 1, CorPeca.Preta, this));
+		this.addPeca(new Cavalo(0, 6, CorPeca.Preta, this));
+		this.addPeca(new Bispo(0, 2, CorPeca.Preta, this));
+		this.addPeca(new Bispo(0, 5, CorPeca.Preta, this));
 
 		
         tabelaTabuleiro.setCellSelectionEnabled(true);
