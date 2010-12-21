@@ -15,8 +15,8 @@ public class Controle {
 	private Tabuleiro tabuleiro = null;
 
 	public Controle(Tabuleiro tabuleiro1, Tabuleiro tabuleiro2) {
-		//this.tabuleiro1 = tabuleiro1;
-		//this.tabuleiro2 = tabuleiro2;
+		// this.tabuleiro1 = tabuleiro1;
+		// this.tabuleiro2 = tabuleiro2;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -37,11 +37,12 @@ public class Controle {
 			JTable tabela = (JTable) e.getSource();
 			tabuleiro = (Tabuleiro) tabela.getModel();
 			if (pecaSelecionada1 == null && pecaSelecionada2 == null) {
-				//Coloca a peça selecionada em pecaSelecionada1
+				// Coloca a peça selecionada em pecaSelecionada1
 				pecaSelecionada1 = tabuleiro.getPeca(linha, coluna);
 				if (pecaSelecionada1 != null)
-					//Verifica se a peça selecionada é diferente da peça da vez
-					if (!pecaSelecionada1.getCor().equals(tabuleiro.getJogadorVez())) {
+					// Verifica se a peça selecionada é diferente da peça da vez
+					if (!pecaSelecionada1.getCor().equals(
+							tabuleiro.getJogadorVez())) {
 						throw new IllegalArgumentException("Não é sua vez");
 					}
 			} else {
@@ -49,20 +50,27 @@ public class Controle {
 				if (pecaSelecionada2 != null)
 					if (pecaSelecionada2.getCor().equals(
 							pecaSelecionada1.getCor())) {
-						pecaSelecionada1 = pecaSelecionada2;
+						if (pecaSelecionada1 != pecaSelecionada2)
+							JOptionPane.showMessageDialog(null,"Você deve jogar com a peça que tocou primeiro!");
+							
 						pecaSelecionada2 = null;
 						return false;
 					}
 				if (pecaSelecionada1.verificaDest(linha, coluna)) {
 					if (pecaSelecionada2 == null)
 						pecaSelecionada1.movimentar(linha, coluna);
-					else{
+					else {
 						try {
-							Peca pecaCapturada = pecaSelecionada1.capturar(pecaSelecionada2);
+							Peca pecaCapturada = pecaSelecionada1
+									.capturar(pecaSelecionada2);
 						} catch (Exception e2) {
-							JOptionPane.showMessageDialog(null, e2.getMessage());
+							JOptionPane
+									.showMessageDialog(null, e2.getMessage());
+							pecaSelecionada2 = null;
+							pecaSelecionada1 = null;
+							return false;
 						}
-						
+
 					}
 					tabuleiro.passaVez();
 					pecaSelecionada1 = null;
@@ -77,7 +85,5 @@ public class Controle {
 			throw new IllegalArgumentException(ex.getMessage());
 		}
 	}
-
-	
 
 }
