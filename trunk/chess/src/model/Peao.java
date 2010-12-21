@@ -5,30 +5,29 @@ import javax.swing.ImageIcon;
 public class Peao extends Peca implements AcaoPecaInterface{
 
 	private boolean movimentado = false;
-	public Peao(int linha,int coluna,CorPeca cor,ListenerPeca listener) {
-		super(linha, coluna,cor,listener);
+	public Peao(int x,int y,CorPeca cor,ListenerPeca listener) {
+		super(x, y,cor,listener);
 		this.imagem = new ImageIcon("Peao"+this.cor.toString()+".jpg");
 	}
 	
 	
 	@Override
-	public void movimentar(int linhaDest, int colunaDest) {
+	public void movimentar(int xDest, int yDest) {
 		// TODO Auto-generated method stub
 		
-			this.xOld = linha;
-			this.yOld = coluna;
-			this.linha = linhaDest;
-			this.coluna = colunaDest;
+			this.xOld = x;
+			this.yOld = y;
+			this.x = xDest;
+			this.y = yDest;
 			movimentado = true;
 			this.listener.alterouPosicao(this);
 	}
 
 	@Override
-	public boolean verificaDest(int linhaDest, int colunaDest) {
+	public boolean verificaDest(int xDest, int yDest) {
 		// TODO Auto-generated method stub
-		System.out.println(linha+" "+coluna);
-		int xDif = linhaDest - linha;
-		int yDif = colunaDest - coluna;
+		int xDif = xDest - x;
+		int yDif = yDest - y;
 		if(xDif<0)
 			xDif = xDif *(-1);
 		if(yDif<0)

@@ -10,8 +10,8 @@ public class Cavalo extends Peca implements AcaoPecaInterface{
 	@Override
 	public void movimentar(int xDest, int yDest) {
 		if(verificaDest(xDest, yDest)){
-			this.linha = xDest;
-			this.coluna = yDest;
+			this.x = xDest;
+			this.y = yDest;
 			this.listener.alterouPosicao(this);
 		}
 		

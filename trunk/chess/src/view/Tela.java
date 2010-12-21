@@ -16,9 +16,6 @@ import control.Controle;
 
 public class Tela extends JFrame{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private ScrollPane scrollFundo;
@@ -40,12 +37,11 @@ public class Tela extends JFrame{
 		Container c = tela.getContentPane();
 		c.setLayout(new BorderLayout());
 		
-		JPanel jpanel = null;
 
 		tela.panel = new JPanel(new GridBagLayout());
-		tela.panel.setSize(1000, 768);
+		tela.panel.setSize(1100, 768);
 		TabuleiroView tabuleiro1 = new TabuleiroView(new Tabuleiro(8, 8));
-		tabuleiro1.setSize(0, 550);
+		tabuleiro1.setSize(600, 550);
 		TabuleiroView tabuleiro2 = new TabuleiroView(new Tabuleiro(8, 8));
 		tela.panel.add(tabuleiro1);
 		//tela.panel.add(tabuleiro2);

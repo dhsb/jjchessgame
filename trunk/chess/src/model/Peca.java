@@ -4,27 +4,27 @@ import javax.swing.ImageIcon;
 
 public abstract class Peca implements AcaoPecaInterface{
 
-	protected int linha;
-	protected int coluna;
+	protected int x;
+	protected int y;
 	protected int xOld;
 	protected int yOld;
 	protected CorPeca cor;
 	protected ListenerPeca listener;
 	protected ImageIcon imagem = null;
 
-	public Peca(int linha, int coluna, CorPeca cor, ListenerPeca listener) {
-		this.linha = linha;
-		this.coluna = coluna;
+	public Peca(int x, int y, CorPeca cor, ListenerPeca listener) {
+		this.x = x;
+		this.y = y;
 		this.cor = cor;
 		this.listener = listener;
 	}
 
-	public int getLinha() {
-		return linha;
+	public int getX() {
+		return x;
 	}
 
 	public int getY() {
-		return coluna;
+		return y;
 	}
 
 	public CorPeca getCor() {
@@ -48,11 +48,11 @@ public abstract class Peca implements AcaoPecaInterface{
 	}
 
 	public void setX(int x) {
-		this.linha = x;
+		this.x = x;
 	}
 
 	public void setY(int y) {
-		this.coluna = y;
+		this.y = y;
 	}
 
 	public void setCor(CorPeca cor) {

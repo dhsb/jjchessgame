@@ -12,8 +12,8 @@ public class Bispo extends Peca implements AcaoPecaInterface {
 	@Override
 	public void movimentar(int xDest, int yDest) {
 		if (verificaDest(xDest, yDest)) {
-			this.linha = xDest;
-			this.coluna = yDest;
+			this.x = xDest;
+			this.y = yDest;
 			System.out.println("movimentou");
 			// this.listener.alterouPosicao(this);
 		} else
@@ -22,8 +22,8 @@ public class Bispo extends Peca implements AcaoPecaInterface {
 
 	@Override
 	public boolean verificaDest(int xDest, int yDest) {
-		int testeX = xDest - linha; // modulo
-		int testeY = yDest - coluna; // modulo
+		int testeX = xDest - x; // modulo
+		int testeY = yDest - y; // modulo
 		if (testeX == testeY) {// movimento valido
 			return true;
 		}

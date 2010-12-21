@@ -6,9 +6,6 @@ import model.Peca;
 
 public class PecaView extends JPanel{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Peca peca;
 

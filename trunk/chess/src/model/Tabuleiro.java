@@ -4,9 +4,6 @@ import javax.swing.table.AbstractTableModel;
 
 public class Tabuleiro extends AbstractTableModel{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int tamanhoX,tamanhoY;
 	private Peca[][] pecas=null;
