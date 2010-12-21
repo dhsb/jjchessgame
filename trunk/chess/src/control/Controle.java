@@ -56,8 +56,14 @@ public class Controle {
 				if (pecaSelecionada1.verificaDest(linha, coluna)) {
 					if (pecaSelecionada2 == null)
 						pecaSelecionada1.movimentar(linha, coluna);
-					else
-						pecaSelecionada1.capturar(pecaSelecionada2);
+					else{
+						try {
+							Peca pecaCapturada = pecaSelecionada1.capturar(pecaSelecionada2);
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(null, e2.getMessage());
+						}
+						
+					}
 					tabuleiro.passaVez();
 					pecaSelecionada1 = null;
 					pecaSelecionada2 = null;
