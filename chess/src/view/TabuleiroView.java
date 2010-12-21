@@ -11,11 +11,11 @@ import javax.swing.ListSelectionModel;
 import model.Bispo;
 import model.Cavalo;
 import model.CorPeca;
-import model.ListenerPeca;
 import model.Peao;
 import model.Peca;
 import model.Tabuleiro;
 import model.Torre;
+import model.interfaces.ListenerPeca;
 import control.Controle;
 import control.ItemRenderer;
 

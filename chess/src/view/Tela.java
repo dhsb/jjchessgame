@@ -22,7 +22,7 @@ public class Tela extends JFrame{
 	
 
 	public Tela() {
-		this.setTitle("Chess - Jean Victor Zunino");
+		this.setTitle("JJChessGame -By Jean Victor Zunino");
 		this.setBounds(1024, 768, 800, 500);
 		this.setSize(1024, 768);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
