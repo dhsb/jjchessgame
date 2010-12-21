@@ -123,6 +123,11 @@ public class TabuleiroView extends JPanel implements ListenerPeca{
 		this.tabelaTabuleiro.setValueAt(null, peca.getxOld(), peca.getyOld());
 		this.tabelaTabuleiro.setValueAt(peca, peca.getX(), peca.getY());
 	}
+	
+	@Override
+	public void foiCapturada(Peca peca) {
+		this.tabelaTabuleiro.setValueAt(null, peca.getX(), peca.getY());
+	}
 
 	public void addPeca(Peca peca){
 		this.tabuleiro.setValueAt(peca, peca.getX(), peca.getY());

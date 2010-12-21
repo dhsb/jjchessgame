@@ -43,7 +43,7 @@ public class Torre extends Peca implements AcaoPecaInterface {
 	
 	@Override
 	public Peca capturar(Peca peca) {
-		
+		movimentar(peca.getX(), peca.getY());
 		return peca;		
 	}
 }
