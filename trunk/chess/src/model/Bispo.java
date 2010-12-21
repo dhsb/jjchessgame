@@ -2,6 +2,9 @@ package model;
 
 import javax.swing.ImageIcon;
 
+import model.interfaces.AcaoPecaInterface;
+import model.interfaces.ListenerPeca;
+
 public class Bispo extends Peca implements AcaoPecaInterface {
 
 	public Bispo(int x, int y, CorPeca cor, ListenerPeca listener) {
