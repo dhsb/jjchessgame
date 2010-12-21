@@ -1,9 +1,12 @@
 package model;
 
+import javax.swing.ImageIcon;
+
 public class Cavalo extends Peca implements AcaoPecaInterface{
 
 	public Cavalo(int x, int y,CorPeca cor,ListenerPeca listener) {
 		super(x, y,cor,listener);
+		this.imagem = new ImageIcon("Cavalo"+this.cor.toString()+".jpg");
 	}
 
 
