@@ -1,11 +1,10 @@
 package view;
 
-import java.awt.ScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
@@ -18,16 +17,13 @@ import model.Torre;
 import control.Controle;
 import control.ItemRenderer;
 
-public class TabuleiroView extends ScrollPane implements ListenerPeca{
+public class TabuleiroView extends JPanel implements ListenerPeca{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTable tabelaTabuleiro = null;
 	private Tabuleiro tabuleiro= null;
 	private Controle controle;
-	private static int larguraCasa = 60;
+	private static int larguraCasa = 55;
 	private static int alturaCasa = 60;
 	public TabuleiroView(Tabuleiro tabuleiro) {
 		super();
@@ -37,9 +33,8 @@ public class TabuleiroView extends ScrollPane implements ListenerPeca{
 		tabelaTabuleiro.setDefaultRenderer(Object.class, new ItemRenderer(tabuleiro));
 		
 		tabuleiro.fireTableDataChanged();
-		this.tabelaTabuleiro.setRowHeight(55);
-		this.setSize(480, 480);
-		/*tabelaTabuleiro.getColumnModel().getColumn(0).setPreferredWidth(110);
+		this.tabelaTabuleiro.setRowHeight(alturaCasa);
+		tabelaTabuleiro.getColumnModel().getColumn(0).setMinWidth(larguraCasa);
 		tabelaTabuleiro.getColumnModel().getColumn(1).setPreferredWidth(larguraCasa);
 		tabelaTabuleiro.getColumnModel().getColumn(2).setPreferredWidth(larguraCasa);
 		tabelaTabuleiro.getColumnModel().getColumn(3).setPreferredWidth(larguraCasa);
@@ -47,7 +42,6 @@ public class TabuleiroView extends ScrollPane implements ListenerPeca{
 		tabelaTabuleiro.getColumnModel().getColumn(5).setPreferredWidth(larguraCasa);
 		tabelaTabuleiro.getColumnModel().getColumn(6).setPreferredWidth(larguraCasa);
 		tabelaTabuleiro.getColumnModel().getColumn(7).setPreferredWidth(larguraCasa);
-		*/
 		iniciar();
 	}
 	
@@ -110,7 +104,6 @@ public class TabuleiroView extends ScrollPane implements ListenerPeca{
         });
 
         tabelaTabuleiro.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabelaTabuleiro.setSize(480,480);
 		this.add(tabelaTabuleiro);
 	
 	}
@@ -118,11 +111,11 @@ public class TabuleiroView extends ScrollPane implements ListenerPeca{
 	@Override
 	public void alterouPosicao(Peca peca) {
 		this.tabelaTabuleiro.setValueAt(null, peca.getxOld(), peca.getyOld());
-		this.tabelaTabuleiro.setValueAt(peca, peca.getLinha(), peca.getY());
+		this.tabelaTabuleiro.setValueAt(peca, peca.getX(), peca.getY());
 	}
 
 	public void addPeca(Peca peca){
-		this.tabuleiro.setValueAt(peca, peca.getLinha(), peca.getY());
+		this.tabuleiro.setValueAt(peca, peca.getX(), peca.getY());
 	}
 	public void setControle(Controle controle) {
 		this.controle = controle;

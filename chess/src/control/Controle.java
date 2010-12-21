@@ -4,10 +4,12 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+
 import model.Peca;
 import model.Tabuleiro;
 
 public class Controle {
+
 	private Peca pecaSelecionada1 = null;
 	private Peca pecaSelecionada2 = null;
 	private Tabuleiro tabuleiro = null;
@@ -35,8 +37,10 @@ public class Controle {
 			JTable tabela = (JTable) e.getSource();
 			tabuleiro = (Tabuleiro) tabela.getModel();
 			if (pecaSelecionada1 == null && pecaSelecionada2 == null) {
+				//Coloca a peça selecionada em pecaSelecionada1
 				pecaSelecionada1 = tabuleiro.getPeca(linha, coluna);
 				if (pecaSelecionada1 != null)
+					//Verifica se a peça selecionada é diferente da peça da vez
 					if (!pecaSelecionada1.getCor().equals(tabuleiro.getJogadorVez())) {
 						throw new IllegalArgumentException("Não é sua vez");
 					}
