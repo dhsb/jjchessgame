@@ -2,6 +2,9 @@ package model;
 
 import javax.swing.ImageIcon;
 
+import model.interfaces.AcaoPecaInterface;
+import model.interfaces.ListenerPeca;
+
 public class Peao extends Peca implements AcaoPecaInterface {
 
 	private boolean movimentado = false;

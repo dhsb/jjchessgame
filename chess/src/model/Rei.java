@@ -1,5 +1,8 @@
 package model;
 
+import model.interfaces.AcaoPecaInterface;
+import model.interfaces.ListenerPeca;
+
 public class Rei extends Peca implements AcaoPecaInterface{
 
 	public Rei(int x, int y,CorPeca cor,ListenerPeca listener) {

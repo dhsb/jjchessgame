@@ -2,6 +2,9 @@ package model;
 
 import javax.swing.ImageIcon;
 
+import model.interfaces.AcaoPecaInterface;
+import model.interfaces.ListenerPeca;
+
 public abstract class Peca implements AcaoPecaInterface{
 
 	protected int x;
