@@ -32,6 +32,8 @@ public class Peao extends Peca implements AcaoPecaInterface {
 			xDif = xDif * (-1);
 		if (yDif < 0)
 			yDif = yDif * (-1);
+		if((xDif==1 && yDif==1))
+			return true;
 		if (yDif > 0)
 			return false;
 
@@ -49,8 +51,8 @@ public class Peao extends Peca implements AcaoPecaInterface {
 		if (yDif < 0)
 			yDif = yDif * (-1);
 		if (xDif == 1 && yDif == 1) {
-			movimentar(peca.getX(), peca.getY());
 			listener.foiCapturada(peca);
+			movimentar(peca.getX(), peca.getY());
 			return peca;
 		} else {
 			new IllegalArgumentException("Impossível capturar!");
