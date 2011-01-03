@@ -65,4 +65,11 @@ public abstract class Peca implements AcaoPecaInterface{
 	public ImageIcon getImagem() {
 		return imagem;
 	}
+	
+	public Peca capturar(Peca peca) throws IllegalArgumentException{
+		listener.foiCapturada(peca);
+		movimentar(peca.getX(), peca.getY());
+		return peca;
+	}
+	
 }

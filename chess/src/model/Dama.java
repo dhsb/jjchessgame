@@ -14,22 +14,31 @@ public class Dama extends Peca implements AcaoPecaInterface{
 
 	@Override
 	public void movimentar(int xDest, int yDest) {
-		if(verificaDest(xDest, yDest)){
-			this.x = xDest;
-			this.y = yDest;
-			this.listener.alterouPosicao(this);
-		}
+		this.xOld = x;
+		this.yOld = y;
+		this.x = xDest;
+		this.y = yDest;
+		//movimentado = true;
+		this.listener.alterouPosicao(this);
 	}
 
 	@Override
 	public boolean verificaDest(int xDest, int yDest) {
-		
+		int xDif = xDest - x;
+		int yDif = yDest - y;
+		if (xDif < 0)
+			xDif = xDif * (-1);
+		if (yDif < 0)
+			yDif = yDif * (-1);
+		if (((xDif == 0) && (yDif != 0)) || ((xDif != 0) && (yDif == 0)))
+			return true;
+		if (xDif == yDif) {// movimento valido
+			return true;
+		}
 		return false;
 	}
 	@Override
 	public Peca capturar(Peca peca) {
-		return peca;
-		// TODO Auto-generated method stub
-		
+		return super.capturar(peca);
 	}
 }

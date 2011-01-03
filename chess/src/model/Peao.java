@@ -28,15 +28,14 @@ public class Peao extends Peca implements AcaoPecaInterface {
 
 	@Override
 	public boolean verificaDest(int xDest, int yDest) {
-		// TODO Auto-generated method stub
+		if (!voltando(xDest, yDest))
+			return false;
 		int xDif = xDest - x;
 		int yDif = yDest - y;
 		if (xDif < 0)
 			xDif = xDif * (-1);
 		if (yDif < 0)
 			yDif = yDif * (-1);
-		if((xDif==1 && yDif==1))
-			return true;
 		if (yDif > 0)
 			return false;
 
@@ -45,8 +44,23 @@ public class Peao extends Peca implements AcaoPecaInterface {
 		return true;
 	}
 
+	public boolean voltando(int xDest, int yDest) {
+		if (cor == CorPeca.Branca) {
+			if (xDest > x)
+				return false;
+		} else {
+			if (xDest < x)
+				return false;
+		}
+		return true;
+
+	}
+
 	@Override
 	public Peca capturar(Peca peca) {
+		//Verifica se peão está voltando
+		if(!voltando(peca.getX(), peca.getY()))
+			new IllegalArgumentException("Peão não pode voltar!");
 		int xDif = peca.getX() - x;
 		int yDif = peca.getY() - y;
 		if (xDif < 0)
@@ -58,9 +72,8 @@ public class Peao extends Peca implements AcaoPecaInterface {
 			movimentar(peca.getX(), peca.getY());
 			return peca;
 		} else {
-			new IllegalArgumentException("Impossível capturar!");
+			throw new IllegalArgumentException("Impossível capturar!");
 		}
-		return null;
 	}
 
 }

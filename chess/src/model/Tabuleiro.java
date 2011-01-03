@@ -15,7 +15,7 @@ public class Tabuleiro extends AbstractTableModel{
 		this.tamanhoY = tamanhoY;
 		pecas= new Peca[tamanhoX][tamanhoY];
 	}
-
+	
 	public void setTamanhoY(int tamanhoY) {
 		this.tamanhoY = tamanhoY;
 	}
