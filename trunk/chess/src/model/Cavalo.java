@@ -30,8 +30,6 @@ public class Cavalo extends Peca implements AcaoPecaInterface{
 	}
 	@Override
 	public Peca capturar(Peca peca) {
-		return peca;
-		// TODO Auto-generated method stub
-		
+		return super.capturar(peca);
 	}
 }

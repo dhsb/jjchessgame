@@ -11,8 +11,10 @@ import javax.swing.ListSelectionModel;
 import model.Bispo;
 import model.Cavalo;
 import model.CorPeca;
+import model.Dama;
 import model.Peao;
 import model.Peca;
+import model.Rei;
 import model.Tabuleiro;
 import model.Torre;
 import model.interfaces.ListenerPeca;
@@ -33,7 +35,6 @@ public class TabuleiroView extends JPanel implements ListenerPeca{
 		this.tabuleiro = tabuleiro;
 		this.tabelaTabuleiro = new JTable(tabuleiro);
 		tabelaTabuleiro.setDefaultRenderer(Object.class, new ItemRenderer(tabuleiro));
-		
 		tabuleiro.fireTableDataChanged();
 		this.tabelaTabuleiro.setRowHeight(alturaCasa);
 		tabelaTabuleiro.getColumnModel().getColumn(0).setMinWidth(larguraCasa);
@@ -50,37 +51,40 @@ public class TabuleiroView extends JPanel implements ListenerPeca{
 	
 	public void iniciar(){
 		//Adiciona peças brancas
-		this.addPeca(new Peao(6, 0, CorPeca.Branca, this));
-		this.addPeca(new Peao(6, 1, CorPeca.Branca, this));
-		this.addPeca(new Peao(6, 2, CorPeca.Branca, this));
-		this.addPeca(new Peao(6, 3, CorPeca.Branca, this));
-		this.addPeca(new Peao(6, 4, CorPeca.Branca, this));
-		this.addPeca(new Peao(6, 5, CorPeca.Branca, this));
-		this.addPeca(new Peao(6, 6, CorPeca.Branca, this));
-		this.addPeca(new Peao(6, 7, CorPeca.Branca, this));
-		this.addPeca(new Torre(7, 0, CorPeca.Branca, this));
-		this.addPeca(new Torre(7, 7, CorPeca.Branca, this));
-		this.addPeca(new Cavalo(7, 1, CorPeca.Branca, this));
-		this.addPeca(new Cavalo(7, 6, CorPeca.Branca, this));
-		this.addPeca(new Bispo(7, 2, CorPeca.Branca, this));
-		this.addPeca(new Bispo(7, 5, CorPeca.Branca, this));
+		this.addPeca(new Peao	(6, 0, 	CorPeca.Branca, this));
+		this.addPeca(new Peao	(6, 1, 	CorPeca.Branca, this));
+		this.addPeca(new Peao	(6, 2, 	CorPeca.Branca, this));
+		this.addPeca(new Peao	(6, 3, 	CorPeca.Branca, this));
+		this.addPeca(new Peao	(6, 4, 	CorPeca.Branca, this));
+		this.addPeca(new Peao	(6, 5, 	CorPeca.Branca, this));
+		this.addPeca(new Peao	(6, 6, 	CorPeca.Branca, this));
+		this.addPeca(new Peao	(6, 7, 	CorPeca.Branca, this));
+		this.addPeca(new Torre	(7, 0, 	CorPeca.Branca, this));
+		this.addPeca(new Torre	(7, 7, 	CorPeca.Branca, this));
+		this.addPeca(new Cavalo	(7, 1, 	CorPeca.Branca, this));
+		this.addPeca(new Cavalo	(7, 6, 	CorPeca.Branca, this));
+		this.addPeca(new Bispo	(7, 2, 	CorPeca.Branca, this));
+		this.addPeca(new Bispo	(7, 5, 	CorPeca.Branca, this));
+		this.addPeca(new Dama	(7, 3, 	CorPeca.Branca, this));
+		this.addPeca(new Rei	(7, 4,	CorPeca.Branca, this));
 		
 		//Adiciona peças pretas
-		this.addPeca(new Peao(1, 0, CorPeca.Preta, this));
-		this.addPeca(new Peao(1, 1, CorPeca.Preta, this));
-		this.addPeca(new Peao(1, 2, CorPeca.Preta, this));
-		this.addPeca(new Peao(1, 3, CorPeca.Preta, this));
-		this.addPeca(new Peao(1, 4, CorPeca.Preta, this));
-		this.addPeca(new Peao(1, 5, CorPeca.Preta, this));
-		this.addPeca(new Peao(1, 6, CorPeca.Preta, this));
-		this.addPeca(new Peao(1, 7, CorPeca.Preta, this));
-		this.addPeca(new Torre(0, 0, CorPeca.Preta, this));
-		this.addPeca(new Torre(0, 7, CorPeca.Preta, this));
-		this.addPeca(new Cavalo(0, 1, CorPeca.Preta, this));
-		this.addPeca(new Cavalo(0, 6, CorPeca.Preta, this));
-		this.addPeca(new Bispo(0, 2, CorPeca.Preta, this));
-		this.addPeca(new Bispo(0, 5, CorPeca.Preta, this));
-
+		this.addPeca(new Peao	(1, 0, 	CorPeca.Preta, this));
+		this.addPeca(new Peao	(1, 1, 	CorPeca.Preta, this));
+		this.addPeca(new Peao	(1, 2, 	CorPeca.Preta, this));
+		this.addPeca(new Peao	(1, 3, 	CorPeca.Preta, this));
+		this.addPeca(new Peao	(1, 4, 	CorPeca.Preta, this));
+		this.addPeca(new Peao	(1, 5, 	CorPeca.Preta, this));
+		this.addPeca(new Peao	(1, 6, 	CorPeca.Preta, this));
+		this.addPeca(new Peao	(1, 7, 	CorPeca.Preta, this));
+		this.addPeca(new Torre	(0, 0, 	CorPeca.Preta, this));
+		this.addPeca(new Torre	(0, 7, 	CorPeca.Preta, this));
+		this.addPeca(new Cavalo	(0, 1, 	CorPeca.Preta, this));
+		this.addPeca(new Cavalo	(0, 6, 	CorPeca.Preta, this));
+		this.addPeca(new Bispo	(0, 2, 	CorPeca.Preta, this));
+		this.addPeca(new Bispo	(0, 5, 	CorPeca.Preta, this));
+		this.addPeca(new Dama	(0, 3, 	CorPeca.Preta, this));
+		this.addPeca(new Rei	(0, 4, 	CorPeca.Preta, this));
 		
         tabelaTabuleiro.setCellSelectionEnabled(true);
         tabelaTabuleiro.setRowSelectionAllowed(false);

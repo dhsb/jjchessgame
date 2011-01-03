@@ -8,5 +8,4 @@ public interface AcaoPecaInterface {
 
 	public void movimentar(int xDest, int yDest);
 	
-	public Peca capturar(Peca peca) throws IllegalArgumentException;
 }

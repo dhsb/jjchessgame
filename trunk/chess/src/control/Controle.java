@@ -47,38 +47,34 @@ public class Controle {
 					}
 			} else {
 				pecaSelecionada2 = tabuleiro.getPeca(linha, coluna);
-				if (pecaSelecionada2 != null)
+				if (pecaSelecionada2 != null) {
 					if (pecaSelecionada2.getCor().equals(
 							pecaSelecionada1.getCor())) {
-						if (pecaSelecionada1 != pecaSelecionada2)
-							JOptionPane.showMessageDialog(null,"Você deve jogar com a peça que tocou primeiro!");
-							
+						if (pecaSelecionada1 != pecaSelecionada2) {
+							// JOptionPane.showMessageDialog(null,"Você deve jogar com a peça que tocou primeiro!");
+						}
 						pecaSelecionada2 = null;
 						return false;
-					}
-				if (pecaSelecionada1.verificaDest(linha, coluna)) {
-					if (pecaSelecionada2 == null)
-						pecaSelecionada1.movimentar(linha, coluna);
-					else {
+					} else {
 						try {
 							Peca pecaCapturada = pecaSelecionada1
 									.capturar(pecaSelecionada2);
 						} catch (Exception e2) {
-							JOptionPane
-									.showMessageDialog(null, e2.getMessage());
-							pecaSelecionada2 = null;
-							pecaSelecionada1 = null;
-							return false;
+							throw new IllegalArgumentException(e2.getMessage());
 						}
-
 					}
-					tabuleiro.passaVez();
-					pecaSelecionada1 = null;
-					pecaSelecionada2 = null;
-					return true;
 				} else {
-					throw new IllegalArgumentException("Movimento inválido");
+					if (pecaSelecionada1.verificaDest(linha, coluna)) {
+						pecaSelecionada1.movimentar(linha, coluna);
+
+					} else {
+						throw new IllegalArgumentException("Movimento inválido");
+					}
 				}
+				tabuleiro.passaVez();
+				pecaSelecionada1 = null;
+				pecaSelecionada2 = null;
+				return true;
 			}
 			return false;
 		} catch (Exception ex) {
