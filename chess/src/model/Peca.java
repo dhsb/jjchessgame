@@ -1,25 +1,31 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 import model.interfaces.AcaoPecaInterface;
 import model.interfaces.ListenerPeca;
 
-public abstract class Peca implements AcaoPecaInterface{
+public abstract class Peca implements AcaoPecaInterface {
 
 	protected int x;
 	protected int y;
 	protected int xOld;
 	protected int yOld;
 	protected CorPeca cor;
-	protected ListenerPeca listener;
+	protected List<ListenerPeca> listeners;
 	protected ImageIcon imagem = null;
 
-	public Peca(int x, int y, CorPeca cor, ListenerPeca listener) {
+	public Peca(int x, int y, CorPeca cor, List<ListenerPeca> listeners) {
 		this.x = x;
 		this.y = y;
 		this.cor = cor;
-		this.listener = listener;
+		this.listeners = listeners;
+		this.imagem = new ImageIcon(getClass().getResource(
+				"/images/" + this.getClass().getSimpleName()
+						+ this.cor.toString() + ".jpg"));
 	}
 
 	public int getX() {
@@ -65,11 +71,19 @@ public abstract class Peca implements AcaoPecaInterface{
 	public ImageIcon getImagem() {
 		return imagem;
 	}
-	
-	public Peca capturar(Peca peca) throws IllegalArgumentException{
-		listener.foiCapturada(peca);
+
+	public Peca capturar(Peca peca) throws IllegalArgumentException {
+		for (ListenerPeca listener : listeners) {
+			listener.foiCapturada(peca);
+		}
 		movimentar(peca.getX(), peca.getY());
 		return peca;
 	}
+
+	public abstract boolean isCheckOponente(Peca[][] pecas);
 	
+	@Override
+	public String toString() {
+		return "";
+	}
 }

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 import model.interfaces.AcaoPecaInterface;
@@ -9,9 +11,8 @@ public class Rei extends Peca implements AcaoPecaInterface {
 
 	private Boolean movimentado = false;
 
-	public Rei(int x, int y, CorPeca cor, ListenerPeca listener) {
-		super(x, y, cor, listener);
-		this.imagem = new ImageIcon("Rei" + this.cor.toString() + ".jpg");
+	public Rei(int x, int y, CorPeca cor,  List<ListenerPeca> listeners) {
+		super(x, y, cor, listeners);
 	}
 
 	@Override
@@ -21,7 +22,9 @@ public class Rei extends Peca implements AcaoPecaInterface {
 		this.x = xDest;
 		this.y = yDest;
 		movimentado = true;
-		this.listener.alterouPosicao(this);
+		for(ListenerPeca listener:listeners){
+			listener.alterouPosicao(this);
+		}
 	}
 
 	@Override
@@ -49,6 +52,11 @@ public class Rei extends Peca implements AcaoPecaInterface {
 
 	public Boolean getMovimentado() {
 		return movimentado;
+	}
+
+	@Override
+	public boolean isCheckOponente(Peca[][] pecas) {
+		return false;
 	}
 
 }

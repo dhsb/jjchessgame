@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 import model.interfaces.AcaoPecaInterface;
@@ -9,9 +11,8 @@ public class Torre extends Peca implements AcaoPecaInterface {
 
 	//private boolean movimentado = false;
 
-	public Torre(int x, int y, CorPeca cor, ListenerPeca listener) {
-		super(x, y, cor, listener);
-		this.imagem = new ImageIcon("Torre" + this.cor.toString() + ".jpg");
+	public Torre(int x, int y, CorPeca cor,  List<ListenerPeca> listeners) {
+		super(x, y, cor, listeners);
 	}
 
 	@Override
@@ -21,7 +22,9 @@ public class Torre extends Peca implements AcaoPecaInterface {
 		this.x = xDest;
 		this.y = yDest;
 		//movimentado = true;
-		this.listener.alterouPosicao(this);
+		for(ListenerPeca listener:listeners){
+			listener.alterouPosicao(this);
+		}
 	}
 
 	@Override
@@ -48,6 +51,13 @@ public class Torre extends Peca implements AcaoPecaInterface {
 	public Peca capturar(Peca peca) {
 		return super.capturar(peca);
 	}
+
+	@Override
+	public boolean isCheckOponente(Peca[][] pecas) {
+		return false;
+	}
+
+
 }
 
 

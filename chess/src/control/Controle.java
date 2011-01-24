@@ -10,10 +10,15 @@ import model.Tabuleiro;
 
 public class Controle {
 
+	/*
+	 Quando uma peça Branca Joga:
+	 *Verificar se o Rei branco não está check( Se tiver Volta jogada e da mensagem )
+	 *Verificar se o Rei Preto está em check( Da mensagem Check ).
+	 */
 	private Peca pecaSelecionada1 = null;
 	private Peca pecaSelecionada2 = null;
 	private Tabuleiro tabuleiro = null;
-
+	
 	public Controle(Tabuleiro tabuleiro1, Tabuleiro tabuleiro2) {
 		// this.tabuleiro1 = tabuleiro1;
 		// this.tabuleiro2 = tabuleiro2;
@@ -29,7 +34,6 @@ public class Controle {
 			pecaSelecionada1 = null;
 			pecaSelecionada2 = null;
 		}
-
 	}
 
 	private boolean jogar(MouseEvent e, int linha, int coluna) throws Exception {
@@ -66,7 +70,9 @@ public class Controle {
 				} else {
 					if (pecaSelecionada1.verificaDest(linha, coluna)) {
 						pecaSelecionada1.movimentar(linha, coluna);
-
+						if (pecaSelecionada1.isCheckOponente(tabuleiro.getPecas())) {
+							JOptionPane.showMessageDialog(null, "Check");
+						}
 					} else {
 						throw new IllegalArgumentException("Movimento inválido");
 					}
