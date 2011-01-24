@@ -63,6 +63,10 @@ public class Controle {
 						try {
 							Peca pecaCapturada = pecaSelecionada1
 									.capturar(pecaSelecionada2);
+							if(pecaCapturada == null){
+								throw new IllegalArgumentException("Impossível Capturar - Movimento inválido!");
+							}
+								
 						} catch (Exception e2) {
 							throw new IllegalArgumentException(e2.getMessage());
 						}
