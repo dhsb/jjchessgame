@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 import model.interfaces.AcaoPecaInterface;
@@ -7,9 +9,8 @@ import model.interfaces.ListenerPeca;
 
 public class Dama extends Peca implements AcaoPecaInterface{
 
-	public Dama(int x, int y,CorPeca cor,ListenerPeca listener) {
-		super(x, y,cor,listener);
-		this.imagem = new ImageIcon("Dama"+this.cor.toString()+".jpg");
+	public Dama(int x, int y,CorPeca cor, List<ListenerPeca> listeners) {
+		super(x, y,cor,listeners);
 	}
 
 	@Override
@@ -19,7 +20,10 @@ public class Dama extends Peca implements AcaoPecaInterface{
 		this.x = xDest;
 		this.y = yDest;
 		//movimentado = true;
-		this.listener.alterouPosicao(this);
+		for(ListenerPeca listener:listeners){
+			listener.alterouPosicao(this);
+		}
+		
 	}
 
 	@Override
@@ -41,4 +45,11 @@ public class Dama extends Peca implements AcaoPecaInterface{
 	public Peca capturar(Peca peca) {
 		return super.capturar(peca);
 	}
+
+	@Override
+	public boolean isCheckOponente(Peca[][] pecas) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

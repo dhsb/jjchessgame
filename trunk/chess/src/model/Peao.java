@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 import model.interfaces.AcaoPecaInterface;
@@ -9,9 +11,8 @@ public class Peao extends Peca implements AcaoPecaInterface {
 
 	private boolean movimentado = false;
 
-	public Peao(int x, int y, CorPeca cor, ListenerPeca listener) {
-		super(x, y, cor, listener);
-		this.imagem = new ImageIcon("Peao" + this.cor.toString() + ".jpg");
+	public Peao(int x, int y, CorPeca cor, List<ListenerPeca> listeners) {
+		super(x, y, cor, listeners);
 	}
 
 	@Override
@@ -23,7 +24,9 @@ public class Peao extends Peca implements AcaoPecaInterface {
 		this.x = xDest;
 		this.y = yDest;
 		movimentado = true;
-		this.listener.alterouPosicao(this);
+		for (ListenerPeca listener : listeners) {
+			listener.alterouPosicao(this);
+		}
 	}
 
 	@Override
@@ -58,8 +61,8 @@ public class Peao extends Peca implements AcaoPecaInterface {
 
 	@Override
 	public Peca capturar(Peca peca) {
-		//Verifica se peão está voltando
-		if(!voltando(peca.getX(), peca.getY()))
+		// Verifica se peï¿½o estï¿½ voltando
+		if (!voltando(peca.getX(), peca.getY()))
 			new IllegalArgumentException("Peão não pode voltar!");
 		int xDif = peca.getX() - x;
 		int yDif = peca.getY() - y;
@@ -68,12 +71,40 @@ public class Peao extends Peca implements AcaoPecaInterface {
 		if (yDif < 0)
 			yDif = yDif * (-1);
 		if (xDif == 1 && yDif == 1) {
-			listener.foiCapturada(peca);
+			for (ListenerPeca listener : listeners) {
+				listener.foiCapturada(peca);
+			}
 			movimentar(peca.getX(), peca.getY());
 			return peca;
 		} else {
 			throw new IllegalArgumentException("Impossível capturar!");
 		}
 	}
+
+	@Override
+	public boolean isCheckOponente(Peca[][] pecas) {
+		Peca peca = null;
+		if(cor == CorPeca.Branca){
+			peca = pecas[x-1][y-1];
+			if(peca!= null && peca.getClass() == Rei.class && peca.getCor() == CorPeca.Preta){
+				return true;
+			}
+			peca = pecas[x-1][y+1];
+			if(peca!= null && peca.getClass() == Rei.class && peca.getCor() == CorPeca.Preta){
+				return true;
+			}
+		}else{
+			peca = pecas[x+1][y-1];
+			if(peca!= null && peca.getClass() == Rei.class && peca.getCor() == CorPeca.Branca){
+				return true;
+			}
+			peca = pecas[x+1][y+1];
+			if(peca!= null && peca.getClass() == Rei.class && peca.getCor() == CorPeca.Branca){
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 }
