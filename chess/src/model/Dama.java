@@ -43,7 +43,9 @@ public class Dama extends Peca implements AcaoPecaInterface{
 	}
 	@Override
 	public Peca capturar(Peca peca) {
-		return super.capturar(peca);
+		if(verificaDest(peca.getX(), peca.getY()))
+			return super.capturar(peca);
+		return null;
 	}
 
 	@Override

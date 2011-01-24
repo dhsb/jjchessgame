@@ -73,6 +73,7 @@ public abstract class Peca implements AcaoPecaInterface {
 	}
 
 	public Peca capturar(Peca peca) throws IllegalArgumentException {
+		
 		for (ListenerPeca listener : listeners) {
 			listener.foiCapturada(peca);
 		}
