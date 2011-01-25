@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -63,7 +64,7 @@ public class Peao extends Peca implements AcaoPecaInterface {
 	public Peca capturar(Peca peca) {
 		// Verifica se peï¿½o estï¿½ voltando
 		if (!voltando(peca.getX(), peca.getY()))
-			new IllegalArgumentException("Peão não pode voltar!");
+			new IllegalArgumentException("Peï¿½o nï¿½o pode voltar!");
 		int xDif = peca.getX() - x;
 		int yDif = peca.getY() - y;
 		if (xDif < 0)
@@ -77,34 +78,49 @@ public class Peao extends Peca implements AcaoPecaInterface {
 			movimentar(peca.getX(), peca.getY());
 			return peca;
 		} else {
-			throw new IllegalArgumentException("Impossível capturar!");
+			throw new IllegalArgumentException("Impossï¿½vel capturar!");
 		}
 	}
 
 	@Override
 	public boolean isCheckOponente(Peca[][] pecas) {
-		Peca peca = null;
-		if(cor == CorPeca.Branca){
-			peca = pecas[x-1][y-1];
-			if(peca!= null && peca.getClass() == Rei.class && peca.getCor() == CorPeca.Preta){
-				return true;
-			}
-			peca = pecas[x-1][y+1];
-			if(peca!= null && peca.getClass() == Rei.class && peca.getCor() == CorPeca.Preta){
-				return true;
-			}
-		}else{
-			peca = pecas[x+1][y-1];
-			if(peca!= null && peca.getClass() == Rei.class && peca.getCor() == CorPeca.Branca){
-				return true;
-			}
-			peca = pecas[x+1][y+1];
-			if(peca!= null && peca.getClass() == Rei.class && peca.getCor() == CorPeca.Branca){
-				return true;
-			}
-		}
-		return false;
+
+		return super.isCheckOponente(pecas);
 	}
 
+	@Override
+	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
+		Peca peca = null;
+		ArrayList<Posicao> lista = new ArrayList<Posicao>();
+		// Pretas
+		int xAux = x + 1;
+		if (cor == CorPeca.Branca)
+			xAux = x - 1;
+		
+		int yAux = x - 1;
+		if (xAux < 8 && yAux >=0) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		xAux = x + 2;
+		yAux = y - 1;
+		if (xAux < 8 && yAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		xAux = x - 2;
+		yAux = y + 1;
+		if (xAux < 8 && yAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		return lista;
+	}
 
 }

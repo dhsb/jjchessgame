@@ -81,10 +81,23 @@ public abstract class Peca implements AcaoPecaInterface {
 		return peca;
 	}
 
-	public abstract boolean isCheckOponente(Peca[][] pecas);
+	public boolean isCheckOponente(Peca[][] pecas){
+		ArrayList<Posicao> posicoes = getPosicoesAtacadas(pecas);
+		Peca peca = null;
+		if(posicoes==null)
+			return false;
+		for(Posicao p:posicoes){
+			peca = pecas[p.getX()][p.getY()];
+			if(peca != null && peca.getClass()==Rei.class && cor!=peca.getCor())
+				return true;
+		}
+		return false;
+	}
 	
 	@Override
 	public String toString() {
 		return "";
 	}
+	
+	public abstract ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas);
 }

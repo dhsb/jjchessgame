@@ -10,6 +10,7 @@ public class Tabuleiro extends AbstractTableModel {
 	private int tamanhoX, tamanhoY;
 	private Peca[][] pecas = null;
 	private CorPeca jogadorVez = CorPeca.Branca;
+	private static Tabuleiro tabuleiro = null;
 
 	public Tabuleiro(int tamanhoX, int tamanhoY) {
 		super();
@@ -98,8 +99,13 @@ public class Tabuleiro extends AbstractTableModel {
 		this.fireTableDataChanged();
 	}
 
+	public static Tabuleiro getInstance(){
+		if(tabuleiro == null)
+			tabuleiro = new Tabuleiro(8, 8);
+		return tabuleiro;
+	}
 	/*
-	 * Método chamado para verificar se após o movimento continuará em check
+	 * Mï¿½todo chamado para verificar se apï¿½s o movimento continuarï¿½ em check
 	 */
 	public void verificarJogadaInvalidaCheck() throws Exception {
 		int x = 0;
@@ -112,7 +118,7 @@ public class Tabuleiro extends AbstractTableModel {
 					continue;
 				if (p.getCor() != jogadorVez) {
 					if(p.isCheckOponente(pecas)){
-						throw new IllegalArgumentException("Jogada Inválida - Você está em Check!");
+						throw new IllegalArgumentException("Jogada Invï¿½lida - Vocï¿½ estï¿½ em Check!");
 					}
 				}
 			}

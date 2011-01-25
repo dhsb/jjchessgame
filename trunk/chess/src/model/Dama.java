@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -52,6 +53,12 @@ public class Dama extends Peca implements AcaoPecaInterface{
 	public boolean isCheckOponente(Peca[][] pecas) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
