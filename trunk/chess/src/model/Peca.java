@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import model.interfaces.AcaoPecaInterface;
 import model.interfaces.ListenerPeca;
 
-public abstract class Peca implements AcaoPecaInterface {
+public abstract class Peca implements AcaoPecaInterface,Cloneable{
 
 	protected int x;
 	protected int y;
@@ -17,7 +17,6 @@ public abstract class Peca implements AcaoPecaInterface {
 	protected CorPeca cor;
 	protected List<ListenerPeca> listeners;
 	protected ImageIcon imagem = null;
-
 	public Peca(int x, int y, CorPeca cor, List<ListenerPeca> listeners) {
 		this.x = x;
 		this.y = y;

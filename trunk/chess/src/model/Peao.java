@@ -64,7 +64,7 @@ public class Peao extends Peca implements AcaoPecaInterface {
 	public Peca capturar(Peca peca) {
 		// Verifica se peï¿½o estï¿½ voltando
 		if (!voltando(peca.getX(), peca.getY()))
-			new IllegalArgumentException("Peï¿½o nï¿½o pode voltar!");
+			new IllegalArgumentException("Peão não pode voltar!");
 		int xDif = peca.getX() - x;
 		int yDif = peca.getY() - y;
 		if (xDif < 0)
@@ -78,7 +78,7 @@ public class Peao extends Peca implements AcaoPecaInterface {
 			movimentar(peca.getX(), peca.getY());
 			return peca;
 		} else {
-			throw new IllegalArgumentException("Impossï¿½vel capturar!");
+			throw new IllegalArgumentException("Impossível capturar!");
 		}
 	}
 
