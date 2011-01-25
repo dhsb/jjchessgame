@@ -9,7 +9,7 @@ import model.Peca;
 import model.interfaces.ListenerPeca;
 
 public class PecasCapturadasTableModel extends AbstractTableModel implements
-		ListenerPeca {
+		ListenerPeca,Cloneable {
 
 	private ArrayList<Peca> pecasBrancasCapturadas;
 	private ArrayList<Peca> pecasPretasCapturadas;
@@ -81,6 +81,20 @@ public class PecasCapturadasTableModel extends AbstractTableModel implements
 		}
 		fireTableDataChanged();
 	}
-	
-	
+
+	public ArrayList<Peca> getPecasBrancasCapturadas() {
+		return pecasBrancasCapturadas;
+	}
+
+	public ArrayList<Peca> getPecasPretasCapturadas() {
+		return pecasPretasCapturadas;
+	}
+
+	public void setPecasBrancasCapturadas(
+			ArrayList<Peca> pecasBrancasCapturadas,
+			ArrayList<Peca> pecasPretasCapturadas) {
+		this.pecasBrancasCapturadas = pecasBrancasCapturadas;
+		this.pecasPretasCapturadas = pecasPretasCapturadas;
+		fireTableDataChanged();
+	}
 }
