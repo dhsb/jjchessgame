@@ -75,7 +75,7 @@ public class Tela extends JFrame {
 		tabela.setMaximumSize(new Dimension(120, 500));
 
 		JScrollPane scroll = new JScrollPane(tabela);
-		scroll.setBorder(BorderFactory.createTitledBorder("Peças Capturadas"));
+		scroll.setBorder(BorderFactory.createTitledBorder("Peas Capturadas"));
 		scroll.setPreferredSize(new Dimension(140, 500));
 		scroll
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
