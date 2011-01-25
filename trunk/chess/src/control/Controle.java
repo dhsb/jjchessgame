@@ -1,11 +1,19 @@
 package control;
 
 import java.awt.event.MouseEvent;
+import java.beans.Beans;
 import java.util.ArrayList;
 
+import javax.naming.spi.ObjectFactory;
+import javax.rmi.CORBA.Util;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
+import org.omg.CORBA.Object;
+
+import view.PecasCapturadasTableModel;
+
+import model.EstadoJogo;
 import model.Peca;
 import model.Posicao;
 import model.Tabuleiro;
@@ -20,8 +28,10 @@ public class Controle {
 	private Peca pecaSelecionada1 = null;
 	private Peca pecaSelecionada2 = null;
 	private Tabuleiro tabuleiro = null;
+	private ControleEstadoJogo controleEstadosJogo;
 
 	public Controle(Tabuleiro tabuleiro1, Tabuleiro tabuleiro2) {
+		controleEstadosJogo = new ControleEstadoJogo();
 		// this.tabuleiro1 = tabuleiro1;
 		// this.tabuleiro2 = tabuleiro2;
 		// TODO Auto-generated constructor stub
@@ -31,7 +41,7 @@ public class Controle {
 		try {
 			jogar(evento, selectedRow, selectedColumn);
 		} catch (Exception e) {
-			System.out.println("e "+e.getMessage());
+			System.out.println("e " + e.getMessage());
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			pecaSelecionada1 = null;
 			pecaSelecionada2 = null;
@@ -71,7 +81,7 @@ public class Controle {
 							}
 
 						} catch (Exception e2) {
-							System.out.println("e2 "+e2.getMessage());
+							System.out.println("e2 " + e2.getMessage());
 							throw new IllegalArgumentException(e2.getMessage());
 						}
 					}
@@ -85,30 +95,38 @@ public class Controle {
 				tabuleiro.atualizar();
 				Peca[][] pecas = Tabuleiro.getInstance().getPecas();
 				System.out.println("Verificando Check...");
-				ArrayList<Posicao> pos = new ArrayList<Posicao>();
 				int x = 0;
 				int y = 0;
 				Peca peca = null;
 				for (x = 0; x < 8; x++) {
 					for (y = 0; y < 8; y++) {
 						peca = pecas[x][y];
-						//Testa se colocou seu próprio rei em check deve voltar ao estado anterior
+						// Testa se colocou seu prï¿½prio rei em check deve voltar
+						// ao estado anterior
 						if (peca != null
 								&& tabuleiro.getJogadorVez() != peca.getCor()
 								&& peca.isCheckOponente(pecas)) {
-							JOptionPane.showMessageDialog(null, "Se Colocou em Check","",1);
+							JOptionPane.showMessageDialog(null,
+									"Se Colocou em Check", "", 1);
+							EstadoJogo estadoAnterior = controleEstadosJogo
+									.voltarEstado();
+							Tabuleiro.getInstance().setPecas(estadoAnterior.getTabuleiro().getPecas());
+							Tabuleiro.getInstance().setJogadorVez(estadoAnterior.getTabuleiro().getJogadorVez());
+							PecasCapturadasTableModel
+									.getInstance().setPecasBrancasCapturadas(estadoAnterior.getPecasCapturas().getPecasBrancasCapturadas(), estadoAnterior.getPecasCapturas().getPecasPretasCapturadas());
 						}
-						//Testa se colocou o rei do adversário em check
+
+						// Testa se colocou o rei do adversï¿½rio em check
 						if (peca != null
 								&& tabuleiro.getJogadorVez() == peca.getCor()
 								&& peca.isCheckOponente(pecas)) {
 							JOptionPane.showMessageDialog(null, "Check");
 						}
-						
-
 					}
 				}
 				tabuleiro.passaVez();
+				Tabuleiro t = (Tabuleiro) tabuleiro.copiar();
+				controleEstadosJogo.addEstado(new EstadoJogo(t,PecasCapturadasTableModel.getInstance()));
 				pecaSelecionada1 = null;
 				pecaSelecionada2 = null;
 				return true;
