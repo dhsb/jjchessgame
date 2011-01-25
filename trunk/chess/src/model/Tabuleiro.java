@@ -96,17 +96,23 @@ public class Tabuleiro extends AbstractTableModel {
 			jogadorVez = CorPeca.Preta;
 		else
 			jogadorVez = CorPeca.Branca;
-		this.fireTableDataChanged();
+
 	}
 
-	public static Tabuleiro getInstance(){
-		if(tabuleiro == null)
+	public static Tabuleiro getInstance() {
+		if (tabuleiro == null)
 			tabuleiro = new Tabuleiro(8, 8);
 		return tabuleiro;
 	}
+
 	/*
-	 * M�todo chamado para verificar se ap�s o movimento continuar� em check
+	 * M�todo chamado para verificar se ap�s o movimento continuar� em
+	 * check
 	 */
+	public void atualizar() {
+		this.fireTableDataChanged();
+	}
+
 	public void verificarJogadaInvalidaCheck() throws Exception {
 		int x = 0;
 		int y = 0;
@@ -117,8 +123,9 @@ public class Tabuleiro extends AbstractTableModel {
 				if (p == null)
 					continue;
 				if (p.getCor() != jogadorVez) {
-					if(p.isCheckOponente(pecas)){
-						throw new IllegalArgumentException("Jogada Inv�lida - Voc� est� em Check!");
+					if (p.isCheckOponente(pecas)) {
+						throw new IllegalArgumentException(
+								"Jogada Inv�lida - Voc� est� em Check!");
 					}
 				}
 			}

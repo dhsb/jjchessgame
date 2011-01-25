@@ -83,6 +83,12 @@ public class Peao extends Peca implements AcaoPecaInterface {
 	}
 
 	@Override
+	public boolean isCheckOponente(Peca[][] pecas) {
+
+		return super.isCheckOponente(pecas);
+	}
+
+	@Override
 	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
 		Peca peca = null;
 		ArrayList<Posicao> lista = new ArrayList<Posicao>();
