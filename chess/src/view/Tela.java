@@ -9,8 +9,12 @@ import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.ScrollPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JMenuBar;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -18,6 +22,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
+
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
@@ -32,59 +38,95 @@ public class Tela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
-	private ScrollPane scrollFundo;
+	private JScrollPane scrollFundo;
 	private JTable tabela;
 
 	public Tela() {
-		this.setTitle("JJChessGame -By Jean Victor Zunino");
-		//this.setBounds(1024, 768, 800, 500);
-		
+		this.setTitle("JJChessGame");
+		// this.setBounds(1024, 768, 800, 500);
+
 		init();
-		setSize(1024, 750);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
-		
+		setExtendedState(MAXIMIZED_BOTH);
 	}
 
 	private void init() {
 		Container c = getContentPane();
-		
 
-		panel = new JPanel(new GridLayout(1,2,20,20));
-		//panel.setSize(1100, 600);
-		TabuleiroView tabuleiro1 = new TabuleiroView(new Tabuleiro(8, 8));
+		panel = new JPanel(new GridBagLayout());
+		// panel.setSize(1100, 600);
+		TabuleiroView tabuleiro1 = new TabuleiroView(Tabuleiro.getInstance());
 		tabuleiro1.setSize(600, 550);
 		panel.add(tabuleiro1);
 
 		Controle controle = new Controle(tabuleiro1.getTabuleiro(), null);
 		tabuleiro1.setControle(controle);
-		
+
 		tabela = new JTable(PecasCapturadasTableModel.getInstance());
 		tabela.setRowHeight(55);
-		tabela.getColumnModel().getColumn(0).setMaxWidth(50);
-		tabela.getColumnModel().getColumn(1).setMaxWidth(50);
-		
-		tabela.setDefaultRenderer(Object.class, new ItemRendererRemovidas(PecasCapturadasTableModel.getInstance()));
-		tabela.setMaximumSize(new Dimension(60, 500));
-		
+		tabela.getColumnModel().getColumn(0).setMaxWidth(60);
+		tabela.getColumnModel().getColumn(1).setMaxWidth(60);
+
+		tabela.setDefaultRenderer(Object.class, new ItemRendererRemovidas(
+				PecasCapturadasTableModel.getInstance()));
+		tabela.setMaximumSize(new Dimension(120, 500));
+
 		JScrollPane scroll = new JScrollPane(tabela);
-		scroll.setBorder(BorderFactory.createTitledBorder("Pe�as Capturadas"));
-		scroll.setPreferredSize(new Dimension(60, 500));
+		scroll.setBorder(BorderFactory.createTitledBorder("Peças Capturadas"));
+		scroll.setPreferredSize(new Dimension(140, 500));
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scroll);
-		
-		scrollFundo = new ScrollPane();
-		scrollFundo.add(panel);
+
+		scrollFundo = new JScrollPane();
+		scrollFundo.setViewportView(panel);
 		scrollFundo.setPreferredSize(new Dimension(1000, 600));
 		c.add(scrollFundo);
 		pack();
+	}
+
+	public JMenuBar getBarraMenu() {
+		JMenuBar barraMenu = new JMenuBar();
+		JMenu menuArquivo = new JMenu("File");
+		JMenuItem itemSalvar = new JMenuItem("Save");
+
+		JMenuItem itemLoad = new JMenuItem("Open");
+
+		JMenuItem itemAbout = new JMenuItem("about");
+		itemLoad.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				about();
+			}
+		});
+
+		itemSalvar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// diretorioSalvar();
+			}
+		});
+
+		barraMenu.add(menuArquivo);
+		menuArquivo.add(itemLoad);
+		menuArquivo.add(itemSalvar);
+		return barraMenu;
 	}
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
 		Tela tela = new Tela();
 		tela.setVisible(true);
+	}
+
+	private void about() {
+		JOptionPane equipe = new JOptionPane("About JJChessGame");
+		equipe.showMessageDialog(this,
+				"JJChessGame\n\nDeselvolvido por Jean Victor Zunino\n"
+						+ "Protótipo de jogo de xadrez.", "Equipe",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }

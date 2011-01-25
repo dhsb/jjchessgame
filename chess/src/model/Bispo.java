@@ -1,15 +1,20 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+
+import view.TabuleiroView;
+
+import frames.MainFrame;
 
 import model.interfaces.AcaoPecaInterface;
 import model.interfaces.ListenerPeca;
 
 public class Bispo extends Peca implements AcaoPecaInterface {
 
-	public Bispo(int x, int y, CorPeca cor,  List<ListenerPeca> listeners) {
+	public Bispo(int x, int y, CorPeca cor, List<ListenerPeca> listeners) {
 		super(x, y, cor, listeners);
 	}
 
@@ -20,9 +25,10 @@ public class Bispo extends Peca implements AcaoPecaInterface {
 		this.x = xDest;
 		this.y = yDest;
 		System.out.println("movimentou");
-		for(ListenerPeca listener:listeners){
+		for (ListenerPeca listener : listeners) {
 			listener.alterouPosicao(this);
 		}
+
 	}
 
 	@Override
@@ -42,33 +48,105 @@ public class Bispo extends Peca implements AcaoPecaInterface {
 
 	@Override
 	public Peca capturar(Peca peca) {
-		if(verificaDest(peca.getX(), peca.getY()))
+		if (verificaDest(peca.getX(), peca.getY()))
 			return super.capturar(peca);
 		return null;
 	}
 
 	@Override
 	public boolean isCheckOponente(Peca[][] pecas) {
-		Peca peca =null;
-		if(cor == CorPeca.Branca){
-			peca = pecas[x-1][y-1];
-			if(peca != null && peca.getClass() == Rei.class && peca.getCor() != CorPeca.Preta){
+		Peca peca = null;
+		int xAux = x;
+		int yAux = y;
+		if (cor == CorPeca.Branca) {
+
+			peca = pecas[x - 1][y - 1];
+			if (peca != null && peca.getClass() == Rei.class
+					&& peca.getCor() != CorPeca.Preta) {
 				return true;
 			}
-			peca = pecas[x-1][y+1];
-			if(peca != null && peca.getClass() == Rei.class && peca.getCor() != CorPeca.Preta){
+			peca = pecas[x - 1][y + 1];
+			if (peca != null && peca.getClass() == Rei.class
+					&& peca.getCor() != CorPeca.Preta) {
 				return true;
 			}
-		}else{
-			peca = pecas[x+1][y-1];
-			if(peca != null && peca.getClass() == Rei.class && peca.getCor() != CorPeca.Branca){
+		} else {
+			peca = pecas[x + 1][y - 1];
+			if (peca != null && peca.getClass() == Rei.class
+					&& peca.getCor() != CorPeca.Branca) {
 				return true;
 			}
-			peca = pecas[x+1][y+1];
-			if(peca != null && peca.getClass() == Rei.class && peca.getCor() != CorPeca.Branca){
+			peca = pecas[x + 1][y + 1];
+			if (peca != null && peca.getClass() == Rei.class
+					&& peca.getCor() != CorPeca.Branca) {
 				return true;
 			}
 		}
 		return false;
 	}
+
+	@Override
+	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
+		int xAux = x+1;
+		int yAux = y+1;
+		Peca peca = null;
+		ArrayList<Posicao> lista = new ArrayList<Posicao>();
+		while (xAux < 8 && yAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+			if (peca != null)
+				yAux = 8;
+			else {
+				yAux++;
+				xAux++;
+			}
+		}
+		
+		xAux = x-1;
+		yAux = y+1;
+		while (xAux >= 0 && yAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+			if (peca != null)
+				yAux = 8;
+			else {
+				xAux--;
+				yAux++;
+			}
+		}
+		xAux = x-1;
+		yAux = y-1;
+		while (xAux >= 0 && yAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+			if (peca != null)
+				yAux = -1;
+			else {
+				xAux--;
+				yAux--;
+			}
+		}
+		xAux = x+1;
+		yAux = y-1;
+		while (xAux < 8 && yAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+			if (peca != null)
+				yAux = -1;
+			else {
+				xAux++;
+				yAux--;
+			}
+		}
+		return lista;
+	}
+
 }

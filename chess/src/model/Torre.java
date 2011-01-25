@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -57,6 +58,67 @@ public class Torre extends Peca implements AcaoPecaInterface {
 	@Override
 	public boolean isCheckOponente(Peca[][] pecas) {
 		return false;
+	}
+
+	@Override
+	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
+		int xAux = x;
+		int yAux = y+1;
+		Peca peca = null;
+		ArrayList<Posicao> lista = new ArrayList<Posicao>();
+		//Verifica para direita
+		while (yAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+			if (peca != null)
+				yAux = 8;
+			else {
+				yAux++;
+			}
+		}
+		yAux = y-1;
+		//Verifica para esquerda
+		while (yAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+			if (peca != null)
+				yAux = -1;
+			else {
+				yAux--;
+			}
+		}
+		yAux = y;
+		xAux = x +1;
+		//Verifica para baixo
+		while (xAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+			if (peca != null)
+				xAux = 8;
+			else {
+				xAux++;
+			}
+		}
+		xAux = x-1;
+		//Verifica para cima
+		while (xAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+			if (peca != null)
+				xAux = -1;
+			else {
+				xAux--;
+			}
+		}
+		return lista;
 	}
 
 
