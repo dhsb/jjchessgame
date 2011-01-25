@@ -83,12 +83,6 @@ public class Peao extends Peca implements AcaoPecaInterface {
 	}
 
 	@Override
-	public boolean isCheckOponente(Peca[][] pecas) {
-
-		return super.isCheckOponente(pecas);
-	}
-
-	@Override
 	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
 		Peca peca = null;
 		ArrayList<Posicao> lista = new ArrayList<Posicao>();
@@ -96,30 +90,27 @@ public class Peao extends Peca implements AcaoPecaInterface {
 		int xAux = x + 1;
 		if (cor == CorPeca.Branca)
 			xAux = x - 1;
-		
-		int yAux = x - 1;
-		if (xAux < 8 && yAux >=0) {
+
+		int yAux = y - 1;
+		if (((cor == CorPeca.Preta && xAux >= 0) || (cor == CorPeca.Branca && xAux < 8))
+				&& yAux >= 0) {
 			peca = pecas[xAux][yAux];
 			if (peca == null || peca.getCor() != cor) {
 				lista.add(new Posicao(xAux, yAux));
 			}
 		}
-		xAux = x + 2;
-		yAux = y - 1;
-		if (xAux < 8 && yAux >= 0) {
-			peca = pecas[xAux][yAux];
-			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux, yAux));
-			}
-		}
-		xAux = x - 2;
+		xAux = x + 1;
+		if (cor == CorPeca.Branca)
+			xAux = x - 1;
 		yAux = y + 1;
-		if (xAux < 8 && yAux < 8) {
+		if (((cor == CorPeca.Preta && xAux < 8) || (cor == CorPeca.Branca && xAux >= 0))
+				&& yAux < 8) {
 			peca = pecas[xAux][yAux];
 			if (peca == null || peca.getCor() != cor) {
 				lista.add(new Posicao(xAux, yAux));
 			}
 		}
+
 		return lista;
 	}
 

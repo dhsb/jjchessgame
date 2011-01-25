@@ -47,12 +47,6 @@ public class Cavalo extends Peca implements AcaoPecaInterface {
 	}
 
 	@Override
-	public boolean isCheckOponente(Peca[][] pecas) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
 
 		Peca peca = null;

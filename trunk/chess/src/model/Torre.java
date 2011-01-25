@@ -56,11 +56,6 @@ public class Torre extends Peca implements AcaoPecaInterface {
 	}
 
 	@Override
-	public boolean isCheckOponente(Peca[][] pecas) {
-		return false;
-	}
-
-	@Override
 	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
 		int xAux = x;
 		int yAux = y+1;
