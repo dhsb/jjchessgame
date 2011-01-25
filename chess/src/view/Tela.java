@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
@@ -54,7 +55,7 @@ public class Tela extends JFrame {
 
 	private void init() {
 		Container c = getContentPane();
-
+		setJMenuBar(getBarraMenu());
 		panel = new JPanel(new GridBagLayout());
 		// panel.setSize(1100, 600);
 		TabuleiroView tabuleiro1 = new TabuleiroView(Tabuleiro.getInstance());
@@ -76,7 +77,8 @@ public class Tela extends JFrame {
 		JScrollPane scroll = new JScrollPane(tabela);
 		scroll.setBorder(BorderFactory.createTitledBorder("Peças Capturadas"));
 		scroll.setPreferredSize(new Dimension(140, 500));
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scroll);
 
 		scrollFundo = new JScrollPane();
@@ -89,9 +91,11 @@ public class Tela extends JFrame {
 	public JMenuBar getBarraMenu() {
 		JMenuBar barraMenu = new JMenuBar();
 		JMenu menuArquivo = new JMenu("File");
-		JMenuItem itemSalvar = new JMenuItem("Save");
+		JMenuItem itemSave = new JMenuItem("Save");
 
 		JMenuItem itemLoad = new JMenuItem("Open");
+		
+		JMenuItem itemExit = new JMenuItem("Exit");
 
 		JMenuItem itemAbout = new JMenuItem("about");
 		itemLoad.addActionListener(new ActionListener() {
@@ -102,16 +106,31 @@ public class Tela extends JFrame {
 			}
 		});
 
-		itemSalvar.addActionListener(new ActionListener() {
+		itemSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// diretorioSalvar();
 			}
 		});
 
+		itemAbout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				about();
+			}
+		});
+		
+		itemExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Fechar
+			}
+		});
 		barraMenu.add(menuArquivo);
-		menuArquivo.add(itemLoad);
-		menuArquivo.add(itemSalvar);
+		//menuArquivo.add(itemLoad);
+		//menuArquivo.add(itemSalvar);
+		//menuArquivo.add(itemExit);
+		barraMenu.add(itemAbout);
 		return barraMenu;
 	}
 
@@ -125,7 +144,7 @@ public class Tela extends JFrame {
 		JOptionPane equipe = new JOptionPane("About JJChessGame");
 		equipe.showMessageDialog(this,
 				"JJChessGame\n\nDeselvolvido por Jean Victor Zunino\n"
-						+ "Protótipo de jogo de xadrez.", "Equipe",
+						+ "Prot�tipo de jogo de xadrez.", "Equipe",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
