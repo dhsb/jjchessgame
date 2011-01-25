@@ -82,6 +82,7 @@ public class Controle {
 						throw new IllegalArgumentException("Movimento inv�lido");
 					}
 				}
+				tabuleiro.atualizar();
 				Peca[][] pecas = Tabuleiro.getInstance().getPecas();
 				System.out.println("Verificando Check...");
 				ArrayList<Posicao> pos = new ArrayList<Posicao>();
@@ -105,12 +106,6 @@ public class Controle {
 						}
 						
 
-					}
-				}
-
-				if (pos != null) {
-					for (Posicao p : pos) {
-						System.out.println(p);
 					}
 				}
 				tabuleiro.passaVez();

@@ -82,6 +82,7 @@ public abstract class Peca implements AcaoPecaInterface {
 	}
 
 	public boolean isCheckOponente(Peca[][] pecas){
+		System.out.println("Verificando check"+this.getClass().getSimpleName()+x+y);
 		ArrayList<Posicao> posicoes = getPosicoesAtacadas(pecas);
 		Peca peca = null;
 		if(posicoes==null)

@@ -69,7 +69,7 @@ public class Cavalo extends Peca implements AcaoPecaInterface {
 		}
 		xAux = x - 2;
 		yAux = y + 1;
-		if (xAux < 8 && yAux < 8) {
+		if (xAux >= 0 && yAux < 8) {
 			peca = pecas[xAux][yAux];
 			if (peca == null || peca.getCor() != cor) {
 				lista.add(new Posicao(xAux, yAux));
@@ -77,7 +77,7 @@ public class Cavalo extends Peca implements AcaoPecaInterface {
 		}
 		xAux = x - 2;
 		yAux = y - 1;
-		if (xAux < 8 && yAux < 8) {
+		if (xAux >= 0 && yAux >= 0) {
 			peca = pecas[xAux][yAux];
 			if (peca == null || peca.getCor() != cor) {
 				lista.add(new Posicao(xAux, yAux));
@@ -102,7 +102,7 @@ public class Cavalo extends Peca implements AcaoPecaInterface {
 		}
 		xAux = x - 1;
 		yAux = y + 2;
-		if (xAux < 8 && yAux < 8) {
+		if (xAux >= 0 && yAux < 8) {
 			peca = pecas[xAux][yAux];
 			if (peca == null || peca.getCor() != cor) {
 				lista.add(new Posicao(xAux, yAux));
@@ -111,7 +111,7 @@ public class Cavalo extends Peca implements AcaoPecaInterface {
 
 		xAux = x - 1;
 		yAux = y - 2;
-		if (xAux < 8 && yAux < 8) {
+		if (xAux >= 0 && yAux >= 0) {
 			peca = pecas[xAux][yAux];
 			if (peca == null || peca.getCor() != cor) {
 				lista.add(new Posicao(xAux, yAux));
