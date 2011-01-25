@@ -78,10 +78,6 @@ public class Controle {
 				} else {
 					if (pecaSelecionada1.verificaDest(linha, coluna)) {
 						pecaSelecionada1.movimentar(linha, coluna);
-						if (pecaSelecionada1.isCheckOponente(tabuleiro
-								.getPecas())) {
-							JOptionPane.showMessageDialog(null, "Check");
-						}
 					} else {
 						throw new IllegalArgumentException("Movimento invï¿½lido");
 					}
@@ -95,12 +91,19 @@ public class Controle {
 				for (x = 0; x < 8; x++) {
 					for (y = 0; y < 8; y++) {
 						peca = pecas[x][y];
-
+						//Testa se colocou seu próprio rei em check deve voltar ao estado anterior
+						if (peca != null
+								&& tabuleiro.getJogadorVez() != peca.getCor()
+								&& peca.isCheckOponente(pecas)) {
+							JOptionPane.showMessageDialog(null, "Se Colocou em Check","",1);
+						}
+						//Testa se colocou o rei do adversário em check
 						if (peca != null
 								&& tabuleiro.getJogadorVez() == peca.getCor()
 								&& peca.isCheckOponente(pecas)) {
 							JOptionPane.showMessageDialog(null, "Check");
 						}
+						
 
 					}
 				}

@@ -54,38 +54,6 @@ public class Bispo extends Peca implements AcaoPecaInterface {
 	}
 
 	@Override
-	public boolean isCheckOponente(Peca[][] pecas) {
-		Peca peca = null;
-		int xAux = x;
-		int yAux = y;
-		if (cor == CorPeca.Branca) {
-
-			peca = pecas[x - 1][y - 1];
-			if (peca != null && peca.getClass() == Rei.class
-					&& peca.getCor() != CorPeca.Preta) {
-				return true;
-			}
-			peca = pecas[x - 1][y + 1];
-			if (peca != null && peca.getClass() == Rei.class
-					&& peca.getCor() != CorPeca.Preta) {
-				return true;
-			}
-		} else {
-			peca = pecas[x + 1][y - 1];
-			if (peca != null && peca.getClass() == Rei.class
-					&& peca.getCor() != CorPeca.Branca) {
-				return true;
-			}
-			peca = pecas[x + 1][y + 1];
-			if (peca != null && peca.getClass() == Rei.class
-					&& peca.getCor() != CorPeca.Branca) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
 	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
 		int xAux = x+1;
 		int yAux = y+1;
