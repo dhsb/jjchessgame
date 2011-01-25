@@ -2,7 +2,7 @@ package model;
 
 import javax.swing.table.AbstractTableModel;
 
-public class Tabuleiro extends AbstractTableModel {
+public class Tabuleiro extends AbstractTableModel implements Cloneable {
 
 	// X = linha
 	// Y = coluna
@@ -106,8 +106,7 @@ public class Tabuleiro extends AbstractTableModel {
 	}
 
 	/*
-	 * M�todo chamado para verificar se ap�s o movimento continuar� em
-	 * check
+	 * M�todo chamado para verificar se ap�s o movimento continuar� em check
 	 */
 	public void atualizar() {
 		this.fireTableDataChanged();
@@ -131,4 +130,20 @@ public class Tabuleiro extends AbstractTableModel {
 			}
 		}
 	}
+
+	public void setPecas(Peca[][] pecas) {
+		this.pecas = pecas;
+		fireTableDataChanged();
+	}
+
+	public void setJogadorVez(CorPeca jogadorVez) {
+		this.jogadorVez = jogadorVez;
+	}
+
+	public Tabuleiro copiar() throws CloneNotSupportedException {
+		Tabuleiro t = (Tabuleiro)clone();
+		t.setPecas(pecas.clone());
+		return t;
+	}
+
 }
