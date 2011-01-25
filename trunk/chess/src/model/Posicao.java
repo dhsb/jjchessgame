@@ -17,7 +17,6 @@ public class Posicao {
 	public int getY() {
 		return y;
 	}
-	
 
 	public void setX(int x) {
 		this.x = x;
