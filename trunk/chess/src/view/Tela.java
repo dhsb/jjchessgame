@@ -6,12 +6,18 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -24,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
+import javax.swing.JWindow;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -35,7 +42,7 @@ import view.renders.ItemRendererTabuleiro;
 import model.Tabuleiro;
 import control.Controle;
 
-public class Tela extends JFrame {
+public class Tela extends Frame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
@@ -47,15 +54,55 @@ public class Tela extends JFrame {
 		// this.setBounds(1024, 768, 800, 500);
 
 		init();
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
 		setExtendedState(MAXIMIZED_BOTH);
 	}
 
 	private void init() {
-		Container c = getContentPane();
-		setJMenuBar(getBarraMenu());
+		addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		setMenuBar(getBarraMenu());
 		panel = new JPanel(new GridBagLayout());
 		// panel.setSize(1100, 600);
 		TabuleiroView tabuleiro1 = new TabuleiroView(Tabuleiro.getInstance());
@@ -75,7 +122,7 @@ public class Tela extends JFrame {
 		tabela.setMaximumSize(new Dimension(120, 500));
 
 		JScrollPane scroll = new JScrollPane(tabela);
-		scroll.setBorder(BorderFactory.createTitledBorder("Peas Capturadas"));
+		scroll.setBorder(BorderFactory.createTitledBorder("Peças Capturadas"));
 		scroll.setPreferredSize(new Dimension(140, 500));
 		scroll
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -84,20 +131,20 @@ public class Tela extends JFrame {
 		scrollFundo = new JScrollPane();
 		scrollFundo.setViewportView(panel);
 		scrollFundo.setPreferredSize(new Dimension(1000, 600));
-		c.add(scrollFundo);
+		add(scrollFundo);
 		pack();
 	}
 
-	public JMenuBar getBarraMenu() {
-		JMenuBar barraMenu = new JMenuBar();
-		JMenu menuArquivo = new JMenu("File");
-		JMenuItem itemSave = new JMenuItem("Save");
+	public MenuBar getBarraMenu() {
+		MenuBar barraMenu = new MenuBar();
+		Menu menuArquivo = new Menu("File");
+		MenuItem itemSave = new MenuItem("Save");
 
-		JMenuItem itemLoad = new JMenuItem("Open");
+		MenuItem itemLoad = new MenuItem("Open");
 		
-		JMenuItem itemExit = new JMenuItem("Exit");
+		MenuItem itemExit = new MenuItem("Exit");
 
-		JMenuItem itemAbout = new JMenuItem("about");
+		MenuItem itemAbout = new MenuItem("about");
 		itemLoad.addActionListener(new ActionListener() {
 
 			@Override
@@ -123,15 +170,16 @@ public class Tela extends JFrame {
 		itemExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Fechar
+				System.exit(0);
 			}
 		});
 		barraMenu.add(menuArquivo);
 		//menuArquivo.add(itemLoad);
 		//menuArquivo.add(itemSalvar);
-		//menuArquivo.add(itemExit);
-		barraMenu.add(itemAbout);
+		menuArquivo.add(itemExit);
+		menuArquivo.add(itemAbout);
 		return barraMenu;
+		
 	}
 
 	public static void main(String[] args) throws IOException,
