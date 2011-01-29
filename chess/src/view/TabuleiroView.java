@@ -93,8 +93,8 @@ public class TabuleiroView extends JPanel implements ListenerPeca {
 	public void iniciar() {
 		ArrayList<ListenerPeca> listenerPecas = new ArrayList<ListenerPeca>();
 		listenerPecas.add(this);
-		listenerPecas.add(PecasCapturadasTableModel.getInstance());
-		// Adiciona peças brancas
+		listenerPecas.add(PecasCapturadasTableModel.getInstance1());
+		// Adiciona peï¿½as brancas
 		this.addPeca(new Peao(6, 0, CorPeca.Branca, listenerPecas));
 		this.addPeca(new Peao(6, 1, CorPeca.Branca, listenerPecas));
 		this.addPeca(new Peao(6, 2, CorPeca.Branca, listenerPecas));

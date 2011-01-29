@@ -47,7 +47,8 @@ public class Tela extends Frame {
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JScrollPane scrollFundo;
-	private JTable tabela;
+	private JTable tabelaCapturadas1;
+	private JTable tabelaCapturadas2;
 
 	public Tela() {
 		this.setTitle("JJChessGame");
@@ -98,36 +99,63 @@ public class Tela extends Frame {
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
+		this.setLayout(new FlowLayout());
 		setMenuBar(getBarraMenu());
 		panel = new JPanel(new GridBagLayout());
+		
+		
+		tabelaCapturadas1 = new JTable(PecasCapturadasTableModel.getInstance1());
+		tabelaCapturadas1.setRowHeight(55);
+		tabelaCapturadas1.getColumnModel().getColumn(0).setMaxWidth(60);
+		tabelaCapturadas1.getColumnModel().getColumn(1).setMaxWidth(60);
+
+		tabelaCapturadas1.setDefaultRenderer(Object.class, new ItemRendererRemovidas(
+				PecasCapturadasTableModel.getInstance1()));
+		tabelaCapturadas1.setMaximumSize(new Dimension(120, 500));
+
+		
+		
+		
+		JScrollPane scrollPecasCapturadas1 = new JScrollPane(tabelaCapturadas1);
+		scrollPecasCapturadas1.setBorder(BorderFactory.createTitledBorder("Peças Fora Mesa 1"));
+		scrollPecasCapturadas1.setPreferredSize(new Dimension(140, 500));
+		scrollPecasCapturadas1
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		panel.add(scrollPecasCapturadas1);
+		
 		// panel.setSize(1100, 600);
-		TabuleiroView tabuleiro1 = new TabuleiroView(Tabuleiro.getInstance());
+		TabuleiroView tabuleiro1 = new TabuleiroView(Tabuleiro.getInstance1());
+		TabuleiroView tabuleiro2 = new TabuleiroView(Tabuleiro.getInstance2());
+		tabuleiro1.setBorder(BorderFactory.createTitledBorder("Mesa 1"));
+		tabuleiro2.setBorder(BorderFactory.createTitledBorder("Mesa 2"));
 		tabuleiro1.setSize(600, 550);
 		panel.add(tabuleiro1);
+		panel.add(tabuleiro2);
 
 		Controle controle = new Controle(tabuleiro1.getTabuleiro(), null);
 		tabuleiro1.setControle(controle);
 
-		tabela = new JTable(PecasCapturadasTableModel.getInstance());
-		tabela.setRowHeight(55);
-		tabela.getColumnModel().getColumn(0).setMaxWidth(60);
-		tabela.getColumnModel().getColumn(1).setMaxWidth(60);
+		
 
-		tabela.setDefaultRenderer(Object.class, new ItemRendererRemovidas(
-				PecasCapturadasTableModel.getInstance()));
-		tabela.setMaximumSize(new Dimension(120, 500));
+		tabelaCapturadas2 = new JTable(PecasCapturadasTableModel.getInstance2());
+		tabelaCapturadas2.setRowHeight(55);
+		tabelaCapturadas2.getColumnModel().getColumn(0).setMaxWidth(60);
+		tabelaCapturadas2.getColumnModel().getColumn(1).setMaxWidth(60);
 
-		JScrollPane scroll = new JScrollPane(tabela);
-		scroll.setBorder(BorderFactory.createTitledBorder("Peças Capturadas"));
-		scroll.setPreferredSize(new Dimension(140, 500));
-		scroll
+		tabelaCapturadas2.setDefaultRenderer(Object.class, new ItemRendererRemovidas(
+				PecasCapturadasTableModel.getInstance1()));
+		tabelaCapturadas2.setMaximumSize(new Dimension(120, 500));
+		
+		JScrollPane scrollPecasCapturadas2 = new JScrollPane(tabelaCapturadas2);
+		scrollPecasCapturadas2.setBorder(BorderFactory.createTitledBorder("Peças Fora Mesa 2"));
+		scrollPecasCapturadas2.setPreferredSize(new Dimension(140, 500));
+		scrollPecasCapturadas2
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		panel.add(scroll);
-
+		panel.add(scrollPecasCapturadas2);
+		
 		scrollFundo = new JScrollPane();
 		scrollFundo.setViewportView(panel);
 		scrollFundo.setPreferredSize(new Dimension(1000, 600));
@@ -192,7 +220,7 @@ public class Tela extends Frame {
 		JOptionPane equipe = new JOptionPane("About JJChessGame");
 		equipe.showMessageDialog(this,
 				"JJChessGame\n\nDeselvolvido por Jean Victor Zunino\n"
-						+ "Protótipo de jogo de xadrez.", "Equipe",
+						+ "Protï¿½tipo de jogo de xadrez.", "Equipe",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
