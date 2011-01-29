@@ -3,19 +3,21 @@ package view;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import model.CorPeca;
 import model.Peca;
 import model.interfaces.ListenerPeca;
 
 public class PecasCapturadasTableModel extends AbstractTableModel implements
-		ListenerPeca,Cloneable {
+		ListenerPeca, Cloneable {
 
 	private ArrayList<Peca> pecasBrancasCapturadas;
 	private ArrayList<Peca> pecasPretasCapturadas;
 	private static Integer COLUNA_BRANCA = 0;
 	private static Integer COLUNA_PRETA = 1;
-	private static PecasCapturadasTableModel pcCapTableModel;
+	private static PecasCapturadasTableModel pcCapTableModel1;
+	private static PecasCapturadasTableModel pcCapTableModel2;
 
 	public PecasCapturadasTableModel() {
 		super();
@@ -23,11 +25,18 @@ public class PecasCapturadasTableModel extends AbstractTableModel implements
 		pecasPretasCapturadas = new ArrayList<Peca>();
 	}
 
-	public static PecasCapturadasTableModel getInstance() {
-		if (pcCapTableModel == null) {
-			pcCapTableModel = new PecasCapturadasTableModel();
+	public static PecasCapturadasTableModel getInstance1() {
+		if (pcCapTableModel1 == null) {
+			pcCapTableModel1 = new PecasCapturadasTableModel();
 		}
-		return pcCapTableModel;
+		return pcCapTableModel1;
+	}
+
+	public static PecasCapturadasTableModel getInstance2() {
+		if (pcCapTableModel2 == null) {
+			pcCapTableModel2 = new PecasCapturadasTableModel();
+		}
+		return pcCapTableModel2;
 	}
 
 	@Override
@@ -97,4 +106,5 @@ public class PecasCapturadasTableModel extends AbstractTableModel implements
 		this.pecasPretasCapturadas = pecasPretasCapturadas;
 		fireTableDataChanged();
 	}
+
 }

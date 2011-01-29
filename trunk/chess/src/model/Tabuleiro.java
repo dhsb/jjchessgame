@@ -10,7 +10,8 @@ public class Tabuleiro extends AbstractTableModel implements Cloneable {
 	private int tamanhoX, tamanhoY;
 	private Peca[][] pecas = null;
 	private CorPeca jogadorVez = CorPeca.Branca;
-	private static Tabuleiro tabuleiro = null;
+	private static Tabuleiro tabuleiro1 = null;
+	private static Tabuleiro tabuleiro2 = null;
 
 	public Tabuleiro(int tamanhoX, int tamanhoY) {
 		super();
@@ -99,10 +100,16 @@ public class Tabuleiro extends AbstractTableModel implements Cloneable {
 
 	}
 
-	public static Tabuleiro getInstance() {
-		if (tabuleiro == null)
-			tabuleiro = new Tabuleiro(8, 8);
-		return tabuleiro;
+	public static Tabuleiro getInstance1() {
+		if (tabuleiro1 == null)
+			tabuleiro1 = new Tabuleiro(8, 8);
+		return tabuleiro1;
+	}
+	
+	public static Tabuleiro getInstance2() {
+		if (tabuleiro2 == null)
+			tabuleiro2 = new Tabuleiro(8, 8);
+		return tabuleiro2;
 	}
 
 	/*

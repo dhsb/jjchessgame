@@ -101,7 +101,7 @@ public class Controle {
 					}
 				}
 				tabuleiro.atualizar();
-				Peca[][] pecas = Tabuleiro.getInstance().getPecas();
+				Peca[][] pecas = Tabuleiro.getInstance1().getPecas();
 				int x = 0;
 				int y = 0;
 				Peca peca = null;
@@ -125,17 +125,17 @@ public class Controle {
 
 							EstadoJogo estadoAnterior = controleEstadosJogo
 									.voltarEstado();
-							Tabuleiro.getInstance().setPecas(
+							Tabuleiro.getInstance1().setPecas(
 									estadoAnterior.getPecas());
 							PecasCapturadasTableModel
-									.getInstance()
+									.getInstance1()
 									.setPecasBrancasCapturadas(
 											estadoAnterior
 													.getPecasBrancasCapturadas(),
 											estadoAnterior
 													.getPecasPretasCapturadas());
-							Tabuleiro.getInstance().fireTableDataChanged();
-							PecasCapturadasTableModel.getInstance()
+							Tabuleiro.getInstance1().fireTableDataChanged();
+							PecasCapturadasTableModel.getInstance1()
 									.fireTableDataChanged();
 							pecaSelecionada1 = null;
 							pecaSelecionada2 = null;
@@ -155,9 +155,9 @@ public class Controle {
 				tabuleiro.passaVez();
 				Tabuleiro t = (Tabuleiro) tabuleiro.copiar();
 				controleEstadosJogo.addEstado(new EstadoJogo(pecas,
-						PecasCapturadasTableModel.getInstance()
+						PecasCapturadasTableModel.getInstance1()
 								.getPecasBrancasCapturadas(),
-						PecasCapturadasTableModel.getInstance()
+						PecasCapturadasTableModel.getInstance1()
 								.getPecasPretasCapturadas()));
 				pecaSelecionada1 = null;
 				pecaSelecionada2 = null;

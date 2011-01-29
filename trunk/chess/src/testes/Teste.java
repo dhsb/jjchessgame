@@ -8,7 +8,7 @@ import model.Tabuleiro;
 import view.TabuleiroView;
 
 public class Teste {
-	private TabuleiroView tabuleiro = new TabuleiroView(Tabuleiro.getInstance());
+	private TabuleiroView tabuleiro = new TabuleiroView(Tabuleiro.getInstance1());
 	private Peca p = null;
 
 	public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Teste {
 	public void testeCasasAtaquesRei() {
 		p = (Peca) tabuleiro.getTabuleiro().getPeca(0, 4);
 		p.movimentar(5, 4);
-		ArrayList<Posicao> ps = p.getPosicoesAtacadas(Tabuleiro.getInstance()
+		ArrayList<Posicao> ps = p.getPosicoesAtacadas(Tabuleiro.getInstance1()
 				.getPecas());
 		System.out.println("REI X=" + p.getX() + "Y=" + p.getY());
 		if (ps == null)
@@ -43,7 +43,7 @@ public class Teste {
 	public void testeCasasAtaquesBispo() {
 		p = (Peca) tabuleiro.getTabuleiro().getPeca(0, 2);
 		p.movimentar(2, 4);
-		ArrayList<Posicao> ps = p.getPosicoesAtacadas(Tabuleiro.getInstance()
+		ArrayList<Posicao> ps = p.getPosicoesAtacadas(Tabuleiro.getInstance1()
 				.getPecas());
 		System.out.println("Bispo X=" + p.getX() + "Y=" + p.getY());
 		if (ps == null)
@@ -59,7 +59,7 @@ public class Teste {
 	public void testeCasasAtaquesCavalo() {
 		p = (Peca) tabuleiro.getTabuleiro().getPeca(0, 1);
 		p.movimentar(2, 2);
-		ArrayList<Posicao> ps = p.getPosicoesAtacadas(Tabuleiro.getInstance()
+		ArrayList<Posicao> ps = p.getPosicoesAtacadas(Tabuleiro.getInstance1()
 				.getPecas());
 		System.out.println("Cavalo X=" + p.getX() + "Y=" + p.getY());
 		if (ps == null)
@@ -75,7 +75,7 @@ public class Teste {
 	public void testeCasasAtaquesTorre() {
 		p = tabuleiro.getTabuleiro().getPeca(7, 0);
 		p.movimentar(2, 4);
-		ArrayList<Posicao> ps = p.getPosicoesAtacadas(Tabuleiro.getInstance()
+		ArrayList<Posicao> ps = p.getPosicoesAtacadas(Tabuleiro.getInstance1()
 				.getPecas());
 		System.out.println("Torre X=" + p.getX() + "Y=" + p.getY());
 		if (ps == null)
