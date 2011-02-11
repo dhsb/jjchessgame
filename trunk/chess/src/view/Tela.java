@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
+import java.awt.Panel;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,10 +32,12 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JWindow;
+import javax.swing.ScrollPaneLayout;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
+import javax.swing.text.LayoutQueue;
 
 import view.renders.ItemRendererRemovidas;
 import view.renders.ItemRendererTabuleiro;
@@ -45,13 +48,21 @@ import control.Controle;
 public class Tela extends Frame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel panel;
+	private JPanel panelFundo;
+	private JPanel panelMesas;
+	private JPanel panelPropriedades;
+	private JScrollPane scrollFundoMesas;
+	private JScrollPane scrollFundoPropriedades;
 	private JScrollPane scrollFundo;
 	private JTable tabelaCapturadas1;
 	private JTable tabelaCapturadas2;
-
+	public static String TITLE = "JJChessGame";
+	public static String TITLE_TABLE_PCS_FORA1 = "Peças Fora - Mesa 1";
+	public static String TITLE_TABLE_PCS_FORA2 = "Peças Fora - Mesa 2";
+	public static String TITLE_MESA1 = "Mesa 1";
+	public static String TITLE_MESA2 = "Mesa 2";
 	public Tela() {
-		this.setTitle("JJChessGame");
+		this.setTitle(TITLE);
 		// this.setBounds(1024, 768, 800, 500);
 
 		init();
@@ -104,7 +115,7 @@ public class Tela extends Frame {
 		});
 		this.setLayout(new FlowLayout());
 		setMenuBar(getBarraMenu());
-		panel = new JPanel(new GridBagLayout());
+		panelMesas = new JPanel(new GridBagLayout());
 		
 		
 		tabelaCapturadas1 = new JTable(PecasCapturadasTableModel.getInstance1());
@@ -120,20 +131,20 @@ public class Tela extends Frame {
 		
 		
 		JScrollPane scrollPecasCapturadas1 = new JScrollPane(tabelaCapturadas1);
-		scrollPecasCapturadas1.setBorder(BorderFactory.createTitledBorder("Peças Fora Mesa 1"));
+		scrollPecasCapturadas1.setBorder(BorderFactory.createTitledBorder(TITLE_TABLE_PCS_FORA1));
 		scrollPecasCapturadas1.setPreferredSize(new Dimension(140, 500));
 		scrollPecasCapturadas1
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		panel.add(scrollPecasCapturadas1);
+		panelMesas.add(scrollPecasCapturadas1);
 		
 		// panel.setSize(1100, 600);
 		TabuleiroView tabuleiro1 = new TabuleiroView(Tabuleiro.getInstance1());
 		TabuleiroView tabuleiro2 = new TabuleiroView(Tabuleiro.getInstance2());
-		tabuleiro1.setBorder(BorderFactory.createTitledBorder("Mesa 1"));
-		tabuleiro2.setBorder(BorderFactory.createTitledBorder("Mesa 2"));
+		tabuleiro1.setBorder(BorderFactory.createTitledBorder(TITLE_MESA1));
+		tabuleiro2.setBorder(BorderFactory.createTitledBorder(TITLE_MESA2));
 		tabuleiro1.setSize(600, 550);
-		panel.add(tabuleiro1);
-		panel.add(tabuleiro2);
+		panelMesas.add(tabuleiro1);
+		panelMesas.add(tabuleiro2);
 
 		Controle controle = new Controle(tabuleiro1.getTabuleiro(), null);
 		tabuleiro1.setControle(controle);
@@ -150,15 +161,23 @@ public class Tela extends Frame {
 		tabelaCapturadas2.setMaximumSize(new Dimension(120, 500));
 		
 		JScrollPane scrollPecasCapturadas2 = new JScrollPane(tabelaCapturadas2);
-		scrollPecasCapturadas2.setBorder(BorderFactory.createTitledBorder("Peças Fora Mesa 2"));
+		scrollPecasCapturadas2.setBorder(BorderFactory.createTitledBorder(TITLE_TABLE_PCS_FORA2));
 		scrollPecasCapturadas2.setPreferredSize(new Dimension(140, 500));
 		scrollPecasCapturadas2
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		panel.add(scrollPecasCapturadas2);
+		panelMesas.add(scrollPecasCapturadas2);
 		
-		scrollFundo = new JScrollPane();
-		scrollFundo.setViewportView(panel);
-		scrollFundo.setPreferredSize(new Dimension(1000, 600));
+		scrollFundoMesas = new JScrollPane(panelMesas);
+		//scrollFundoMesas.setViewportView(panelMesas);
+		
+		panelPropriedades = new JPanel();
+		scrollFundoPropriedades = new JScrollPane(panelPropriedades);
+		
+		panelFundo = new JPanel(new GridLayout(2, 1));
+		panelFundo.add(scrollFundoMesas);
+		panelFundo.add(scrollFundoPropriedades);
+		
+		scrollFundo = new JScrollPane(panelFundo);
 		add(scrollFundo);
 		pack();
 	}

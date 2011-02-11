@@ -9,6 +9,9 @@ import javax.rmi.CORBA.Util;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
+import org.forritan.talvmenni.knowledge.TheoryBook;
+import org.forritan.talvmenni.search.PrincipalVariation.Factory;
+import org.forritan.talvmenni.strategy.AlphaBetaStrategy;
 import org.omg.CORBA.Object;
 
 import view.PecasCapturadasTableModel;
@@ -35,9 +38,12 @@ public class Controle {
 	private static String IMP_CAP_MOV_INV_MESSAGE = "Impossível Capturar - Movimento Inválido!";
 	private static String TITULO_ERRO_ALERT_MESSAGE = "JJChessGame - Erro";
 	private boolean check = false;
+	private AlphaBetaStrategy alphaBetaStrategy;
 
 	public Controle(Tabuleiro tabuleiro1, Tabuleiro tabuleiro2) {
 		controleEstadosJogo = new ControleEstadoJogo();
+		alphaBetaStrategy = new AlphaBetaStrategy(1, new TheoryBook(1000),Factory.create(1));
+		
 		// this.tabuleiro1 = tabuleiro1;
 		// this.tabuleiro2 = tabuleiro2;
 		// TODO Auto-generated constructor stub

@@ -43,7 +43,7 @@ public class ItemRendererTabuleiro extends DefaultTableCellRenderer{
         }
         Component cell = super.getTableCellRendererComponent
         (tabela, value, isSelected, hasFocus, linha, coluna);
-     if( value instanceof Integer )
+		if (value instanceof Integer)
      {
          Integer amount = (Integer) value;
          if( amount.intValue() < 0 )

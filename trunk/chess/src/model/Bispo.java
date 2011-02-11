@@ -7,8 +7,6 @@ import javax.swing.ImageIcon;
 
 import view.TabuleiroView;
 
-import frames.MainFrame;
-
 import model.interfaces.AcaoPecaInterface;
 import model.interfaces.ListenerPeca;
 
