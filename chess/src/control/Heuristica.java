@@ -142,7 +142,7 @@ public class Heuristica {
 		}
 		return score;
 	}
-
+	
 	public double calcScoreDefesa(CorPeca cor) {
 		double score = 0;
 		Peca p = null;
