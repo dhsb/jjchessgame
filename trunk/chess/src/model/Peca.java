@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import model.interfaces.AcaoPecaInterface;
+import model.interfaces.IPeaceAction;
 import model.interfaces.ListenerPeca;
 
-public abstract class Peca implements AcaoPecaInterface,Cloneable{
+public abstract class Peca implements IPeaceAction, Cloneable {
 
 	protected int x;
 	protected int y;
@@ -17,6 +17,7 @@ public abstract class Peca implements AcaoPecaInterface,Cloneable{
 	protected CorPeca cor;
 	protected List<ListenerPeca> listeners;
 	protected ImageIcon imagem = null;
+
 	public Peca(int x, int y, CorPeca cor, List<ListenerPeca> listeners) {
 		this.x = x;
 		this.y = y;
@@ -71,33 +72,52 @@ public abstract class Peca implements AcaoPecaInterface,Cloneable{
 		return imagem;
 	}
 
-	public Peca capturar(Peca peca) throws IllegalArgumentException {
-		
+	public void capturar(Peca peca) throws IllegalArgumentException {
+
 		for (ListenerPeca listener : listeners) {
 			listener.foiCapturada(peca);
 		}
 		movimentar(peca.getX(), peca.getY());
-		return peca;
 	}
 
-	public boolean isCheckOponente(Peca[][] pecas){
-		System.out.println("Verificando check"+this.getClass().getSimpleName()+x+y);
+	public boolean isCheckOponente(Peca[][] pecas) {
+		System.out.println("Verificando check"
+				+ this.getClass().getSimpleName() + x + y);
 		ArrayList<Posicao> posicoes = getPosicoesAtacadas(pecas);
 		Peca peca = null;
-		if(posicoes==null)
+		if (posicoes == null)
 			return false;
-		for(Posicao p:posicoes){
+		for (Posicao p : posicoes) {
 			peca = pecas[p.getX()][p.getY()];
-			if(peca != null && peca.getClass()==Rei.class && cor!=peca.getCor())
+			if (peca != null && peca.getClass() == Rei.class
+					&& cor != peca.getCor())
 				return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "";
+		return getClass().getSimpleName() +" Cor "+ CorPeca.getDescription(cor) + " Linha:" + x + " Coluna:" + y;
 	}
-	
+
+	/**
+	 * Retorna as posições atacadas. Todas as Posições que estão vazias ou
+	 * ocupadas por uma peça inimiga
+	 * 
+	 * @param pecas
+	 *            o Tabuleiro
+	 * @return As posições atacadas
+	 */
 	public abstract ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas);
+
+	/**
+	 * Retorna as posições Defendidas. Todas as Posições que estão ocupadas por
+	 * uma peça da mesma cor
+	 * 
+	 * @param pecas
+	 *            o Tabuleiro
+	 * @return As posições atacadas
+	 */
+	public abstract ArrayList<Posicao> getPosicoesDefendidas(Peca[][] pecas);
 }

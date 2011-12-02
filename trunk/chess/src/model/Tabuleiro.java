@@ -12,12 +12,13 @@ public class Tabuleiro extends AbstractTableModel implements Cloneable {
 	private CorPeca jogadorVez = CorPeca.Branca;
 	private static Tabuleiro tabuleiro1 = null;
 	private static Tabuleiro tabuleiro2 = null;
-	private boolean inverteTabuleiro;
-	public Tabuleiro(int tamanhoX, int tamanhoY,boolean inverte) {
+	private int qtdBispoPreto;
+	private int qtdBispoBranco;
+
+	public Tabuleiro(int tamanhoX, int tamanhoY) {
 		super();
 		this.tamanhoX = tamanhoX;
 		this.tamanhoY = tamanhoY;
-		this.inverteTabuleiro = inverte;
 		pecas = new Peca[tamanhoX][tamanhoY];
 	}
 
@@ -103,18 +104,19 @@ public class Tabuleiro extends AbstractTableModel implements Cloneable {
 
 	public static Tabuleiro getInstance1() {
 		if (tabuleiro1 == null)
-			tabuleiro1 = new Tabuleiro(8, 8,false);
+			tabuleiro1 = new Tabuleiro(8, 8);
 		return tabuleiro1;
 	}
-	
+
 	public static Tabuleiro getInstance2() {
 		if (tabuleiro2 == null)
-			tabuleiro2 = new Tabuleiro(8, 8,true);
+			tabuleiro2 = new Tabuleiro(8, 8);
 		return tabuleiro2;
 	}
 
 	/*
-	 * M�todo chamado para verificar se ap�s o movimento continuar� em check
+	 * M�todo chamado para verificar se ap�s o movimento continuar� em
+	 * check
 	 */
 	public void atualizar() {
 		this.fireTableDataChanged();
@@ -149,9 +151,34 @@ public class Tabuleiro extends AbstractTableModel implements Cloneable {
 	}
 
 	public Tabuleiro copiar() throws CloneNotSupportedException {
-		Tabuleiro t = (Tabuleiro)clone();
+		Tabuleiro t = (Tabuleiro) clone();
 		t.setPecas(pecas.clone());
 		return t;
 	}
 
+	public void atualizaQtdBispo() {
+		Peca p = null;
+		qtdBispoBranco = 0;
+		qtdBispoPreto = 0;
+		for (int x = 0; x < tamanhoX; x++) {
+			for (int y = 0; y < tamanhoY; y++) {
+				p = pecas[x][y];
+				if (p != null && p instanceof Bispo) {
+					if (p.getCor() == CorPeca.Branca) {
+						qtdBispoBranco++;
+					} else {
+						qtdBispoPreto++;
+					}
+				}
+			}
+		}
+	}
+
+	public int getQtdBispoBranco() {
+		return qtdBispoBranco;
+	}
+
+	public int getQtdBispoPreto() {
+		return qtdBispoPreto;
+	}
 }

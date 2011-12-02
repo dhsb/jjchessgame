@@ -19,50 +19,41 @@ import model.Peca;
 import model.Tabuleiro;
 
 /**
- *
+ * 
  * @author Jean Victor Zunino
  */
 @SuppressWarnings("serial")
-public class ItemRendererTabuleiro extends DefaultTableCellRenderer{
-    
-    private Tabuleiro tabuleiro;
-    
-    public ItemRendererTabuleiro(Tabuleiro tabuleiro){
-        this.tabuleiro = tabuleiro;
-    }
-    
-    public Component getTableCellRendererComponent(JTable tabela, Object value,
-            boolean isSelected,boolean hasFocus, int linha, int coluna) {
-        Peca peca= tabuleiro.getPeca(linha, coluna);
-        
-        if(peca != null){
-            this.setIcon(peca.getImagem());
-            
-        }else{
-            this.setIcon(null);
-        }
-        Component cell = super.getTableCellRendererComponent
-        (tabela, value, isSelected, hasFocus, linha, coluna);
-		if (value instanceof Integer)
-     {
-         Integer amount = (Integer) value;
-         if( amount.intValue() < 0 )
-         {
-             cell.setBackground( Color.red );
-             // You can also customize the Font and Foreground this way
-             // cell.setForeground();
-             // cell.setFont();
-         }
-         else
-         {
-             cell.setBackground( Color.white );
-         }
-     }
+public class ItemRendererTabuleiro extends DefaultTableCellRenderer {
 
-        return this;
-        
-        
-    }
-    
-    
+	private Tabuleiro tabuleiro;
+
+	public ItemRendererTabuleiro(Tabuleiro tabuleiro) {
+		this.tabuleiro = tabuleiro;
+	}
+
+	
+	public Component getTableCellRendererComponent(JTable tabela, Object value,
+			boolean isSelected, boolean hasFocus, int linha, int coluna) {
+		Peca peca = tabuleiro.getPeca(linha, coluna);
+
+		if (peca != null) {
+			this.setIcon(peca.getImagem());
+		} else {
+			this.setIcon(null);
+		}
+		Component cell = super.getTableCellRendererComponent(tabela, value,
+				isSelected, hasFocus, linha, coluna);
+		if (value instanceof Peca) {
+			if (isSelected) {
+				cell.setFocusable(true);
+			}
+		}
+		if (linha % 2 != 0)
+			cell.setBackground(Color.BLACK);
+		else
+			cell.setBackground(Color.WHITE);
+		cell.repaint();
+		return cell;
+	}
+
 }

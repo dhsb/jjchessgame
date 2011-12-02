@@ -99,7 +99,7 @@ public class PecasCapturadasTableModel extends AbstractTableModel implements
 		return pecasPretasCapturadas;
 	}
 
-	public void setPecasBrancasCapturadas(
+	public void setPecasCapturadas(
 			ArrayList<Peca> pecasBrancasCapturadas,
 			ArrayList<Peca> pecasPretasCapturadas) {
 		this.pecasBrancasCapturadas = pecasBrancasCapturadas;
