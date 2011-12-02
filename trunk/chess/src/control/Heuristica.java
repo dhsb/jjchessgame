@@ -93,8 +93,22 @@ public class Heuristica {
 		return false;
 	}
 
+	private int qtdPecas(Peca[][] pecas) {
+		Peca p = null;
+		int qtd = 0;
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				p = pecas[x][y];
+				if (p != null) {
+					qtd++;
+				}
+			}
+		}
+		return qtd;
+	}
+
 	private double calcPesoBispo(Peca bispo, Peca[][] pecas) {
-		if (tabuleiro.getQtdBispoBranco() == 2) {
+		if (tabuleiro.getQtdBispoBranco() == 2 && qtdPecas(pecas) > 26) {
 			return 1.2 + (bispo.getPosicoesAtacadas(pecas).size() / MAX_ATTACK_BISPO);// Ajustar
 		} else {
 			return 1 + (bispo.getPosicoesAtacadas(pecas).size() / MAX_ATTACK_BISPO);
@@ -217,7 +231,7 @@ public class Heuristica {
 		total += calcScoreDefesa(cor) * 0.2;
 		total += calcScoreMaterialxPeso(cor) * 0.5;
 		total += calcScoreEstruturaPeao(cor); // Deixa com peso 1 Valor entre 0
-												// e 0.8
+		// e 0.8
 		return total;
 	}
 }
