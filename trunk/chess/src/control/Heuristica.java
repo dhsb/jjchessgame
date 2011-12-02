@@ -45,9 +45,6 @@ public class Heuristica {
 		} else if (p instanceof Dama) {
 			return DAMA_VALUE;
 		}
-		// else if (p instanceof Rei) {
-		// return REI_VALUE;
-		// }
 		else if (p instanceof Torre) {
 			return TORRE_VALUE;
 		}
@@ -60,7 +57,7 @@ public class Heuristica {
 		} else if (p instanceof Bispo) {
 			return calcPesoBispo(p, pecas);
 		} else if (p instanceof Cavalo) {
-			return calcPesoCavalo(p);
+			return calcPesoCavalo(pecas, p);
 		} else if (p instanceof Dama) {
 			return 1;
 		} else if (p instanceof Rei) {
@@ -71,9 +68,8 @@ public class Heuristica {
 		return 1;
 	}
 
-	private double calcPesoCavalo(Peca c) {
-		if (stayCenter(c)
-				&& calcScoreMaterialxPeso(CorPeca.getOther(c.getCor())) > 28) {
+	private double calcPesoCavalo(Peca[][] pecas, Peca c) {
+		if (stayCenter(c) && qtdPecas(pecas) > 26) {
 			return 1.5;
 		}
 		return 1;
@@ -108,7 +104,12 @@ public class Heuristica {
 	}
 
 	private double calcPesoBispo(Peca bispo, Peca[][] pecas) {
-		if (tabuleiro.getQtdBispoBranco() == 2 && qtdPecas(pecas) > 26) {
+		if (tabuleiro.getQtdBispoBranco() == 2 && qtdPecas(pecas) <= 24) { // O
+			// jogo
+			// já
+			// está
+			// mais
+			// desenvolvido
 			return 1.2 + (bispo.getPosicoesAtacadas(pecas).size() / MAX_ATTACK_BISPO);// Ajustar
 		} else {
 			return 1 + (bispo.getPosicoesAtacadas(pecas).size() / MAX_ATTACK_BISPO);
@@ -142,7 +143,7 @@ public class Heuristica {
 		}
 		return score;
 	}
-	
+
 	public double calcScoreDefesa(CorPeca cor) {
 		double score = 0;
 		Peca p = null;
@@ -154,6 +155,7 @@ public class Heuristica {
 				p = pecas[x][y];
 				if (p != null && p.getCor() == cor) {
 					List<Posicao> list = p.getPosicoesDefendidas(pecas);
+					System.out.println(p + " Defesa " + list.size());
 					score += list.size();
 				}
 			}
@@ -216,7 +218,7 @@ public class Heuristica {
 				if (p != null && p.getCor() == cor && p instanceof Peao) {
 					if (!colunas.contains(y)) {
 						colunas.add(y);
-						score += 0.1;
+						score += 1;
 					}
 				}
 			}
@@ -225,13 +227,22 @@ public class Heuristica {
 		return score;
 	}
 
+	/**
+	 * Ataque 20 %<br>
+	 * Defesa 20 %<br>
+	 * Estrutura Peão 10 %<br>
+	 * Centro 10 %<br>
+	 * Material x Peso 50 %
+	 * 
+	 * @param cor
+	 * @return
+	 */
 	public double calcTotalScore(CorPeca cor) {
-		double total = calcScoreAtaque(cor) * 0.1;
-		total += calcScoreCentro(cor) * 0.2;
+		double total = calcScoreAtaque(cor) * 0.15;
+		total += calcScoreCentro(cor) * 0.05;
 		total += calcScoreDefesa(cor) * 0.2;
 		total += calcScoreMaterialxPeso(cor) * 0.5;
-		total += calcScoreEstruturaPeao(cor); // Deixa com peso 1 Valor entre 0
-		// e 0.8
+		total += calcScoreEstruturaPeao(cor) * 0.1;
 		return total;
 	}
 }

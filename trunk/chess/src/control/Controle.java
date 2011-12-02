@@ -65,8 +65,8 @@ public class Controle {
 			if (validation.validCapture(tabuleiro, pecaSelecionada, alvo)) {
 				System.out.println("Selecionado outra Peça");
 			} else {
-				pecaSelecionada =alvo;
-				alvo=null;
+				pecaSelecionada = alvo;
+				alvo = null;
 				tela.setPecaSelecionada(pecaSelecionada.toString());
 				return false;// Selecionou outra peça, apenas
 			}
@@ -120,24 +120,9 @@ public class Controle {
 			}
 		}
 		tabuleiro.passaVez();
+
 		tela.setJogadorVez(CorPeca.getDescription(tabuleiro.getJogadorVez()));
-		tela.setTotalScoreBranco(heuristica
-				.calcTotalScore(CorPeca.Branca));
-		tela.setTotalScorePreto(heuristica
-				.calcTotalScore(CorPeca.Preta));
-		
-		tela.setScoreMaterialBranco(heuristica
-				.calcScoreMaterialxPeso(CorPeca.Branca));
-		tela.setScoreMaterialPreto(heuristica
-				.calcScoreMaterialxPeso(CorPeca.Preta));
-		tela.setScoreAtaqueBranco(heuristica.calcScoreAtaque(CorPeca.Branca));
-		tela.setScoreAtaquePreto(heuristica.calcScoreAtaque(CorPeca.Preta));
-		tela.setScoreDefesaBranco(heuristica.calcScoreDefesa(CorPeca.Branca));
-		tela.setScoreDefesaPreto(heuristica.calcScoreDefesa(CorPeca.Preta));
-		tela.setScoreControleCentroBranco(heuristica.calcScoreCentro(CorPeca.Branca));
-		tela.setScoreControleCentroPreto(heuristica.calcScoreCentro(CorPeca.Preta));
-		tela.setScoreEstruturaPeaoBranco(heuristica.calcScoreEstruturaPeao(CorPeca.Branca));
-		tela.setScoreEstruturaPeaoPreto(heuristica.calcScoreEstruturaPeao(CorPeca.Preta));
+		atualizaScore();
 		controleEstadosJogo.addEstado(new EstadoJogo(pecas,
 				PecasCapturadasTableModel.getInstance1()
 						.getPecasBrancasCapturadas(), PecasCapturadasTableModel
@@ -146,10 +131,36 @@ public class Controle {
 		return true;
 	}
 
+	public void atualizaScore() {
+		tela.setTotalScoreBranco(heuristica.calcTotalScore(CorPeca.Branca));
+		tela.setTotalScorePreto(heuristica.calcTotalScore(CorPeca.Preta));
+
+		tela.setScoreMaterialBranco(heuristica
+				.calcScoreMaterialxPeso(CorPeca.Branca));
+		tela.setScoreMaterialPreto(heuristica
+				.calcScoreMaterialxPeso(CorPeca.Preta));
+		tela.setScoreAtaqueBranco(heuristica.calcScoreAtaque(CorPeca.Branca));
+		tela.setScoreAtaquePreto(heuristica.calcScoreAtaque(CorPeca.Preta));
+		tela.setScoreDefesaBranco(heuristica.calcScoreDefesa(CorPeca.Branca));
+		tela.setScoreDefesaPreto(heuristica.calcScoreDefesa(CorPeca.Preta));
+		tela.setScoreControleCentroBranco(heuristica
+				.calcScoreCentro(CorPeca.Branca));
+		tela.setScoreControleCentroPreto(heuristica
+				.calcScoreCentro(CorPeca.Preta));
+		tela.setScoreEstruturaPeaoBranco(heuristica
+				.calcScoreEstruturaPeao(CorPeca.Branca));
+		tela.setScoreEstruturaPeaoPreto(heuristica
+				.calcScoreEstruturaPeao(CorPeca.Preta));
+	}
+
 	void setNenhumaSelecionada() {
 		pecaSelecionada = null;
 		alvo = null;
 		tela.setPecaSelecionada("Nenhuma");
+	}
+
+	public String GetInfoPeca() {
+		return "";
 	}
 
 	public boolean jogar(int linha, int coluna) throws Exception {
