@@ -114,6 +114,7 @@ public class Tela extends JFrame {
 		controle.setTela(this);
 		tabuleiro1.setControle(controle);
 		tabuleiro1.setEnabled(false);
+		controle.atualizaScore();
 	}
 
 	private void initComponents() {
@@ -824,15 +825,9 @@ public class Tela extends JFrame {
 		equipe
 				.showMessageDialog(
 						this,
-						"JJChessGame\n\nDeselvolvido por Jean Victor Zunino\n"
-								+ "Protótipo de jogo de xadrez Para se jogar em Dupla.\n"
-								+ "O jogo de xadrez para se jogar em dupla é conhecido por Xadrez Australiano, lá fora é chamado de BUGHOUSE.\n"
-								+ " Jogado em dois tabuleiros adjacentes por duas duplas. Um conduzindo as brancas e seu parceiro as pretas.\n"
-								+ " A característica especial deste jogo é que as peças que você capturar são transferidas para o seu parceiro, que está jogando com as peças de cor opostas as suas. \nVocê pode “soltar” uma peça que você recebeu em uma casa vazia e isso conta como um lance.\n"
-								+ " Existem Campeonatos dessa modalidade!\n\n"
-								+ "Links:\n\t"
-								+ "Clube de Xadrez de Blumenau: http://www.cxblumenau.com.br/\n\n"
-								+ "O XADREZ É O MAIS FORMIDÁVEL JOGO DE PURA HABILIDADE MENTAL JÁ INVENTADO PELA MENTE HUMANA",
+						"JJChessGame\n\nDeselvolvido por:\n\t\t Jean Victor Zunino\n\t\tMayara Barbieri Silva"
+								+ "Links:\n\n\t\t"
+								+ "'O XADREZ É O MAIS FORMIDÁVEL JOGO DE PURA HABILIDADE MENTAL JÁ INVENTADO PELA MENTE HUMANA'",
 						"JJChessGame", JOptionPane.INFORMATION_MESSAGE);
 	}
 
