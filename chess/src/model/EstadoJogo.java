@@ -1,9 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import view.PecasCapturadasTableModel;
 
 public class EstadoJogo {
 	private Peca[][] pecas;

@@ -3,12 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-
-import model.interfaces.AcaoPecaInterface;
+import model.interfaces.IPeaceAction;
 import model.interfaces.ListenerPeca;
 
-public class Rei extends Peca implements AcaoPecaInterface {
+public class Rei extends Peca implements IPeaceAction {
 
 	private Boolean movimentado = false;
 
@@ -29,28 +27,8 @@ public class Rei extends Peca implements AcaoPecaInterface {
 	}
 
 	@Override
-	public boolean verificaDest(int xDest, int yDest) {
-		int xDif = xDest - x;
-		int yDif = yDest - y;
-		if (xDif < 0)
-			xDif = xDif * (-1);
-		if (yDif < 0)
-			yDif = yDif * (-1);
-		System.out.println(xDest);
-		if (xDif == 1 && yDif == 1)// moveu rei uma casa para diagonal
-			return true;
-		else if (xDif == 1 && yDif == 0) //
-			return true;
-		else if (xDif == 0 && yDif == 1) //
-			return true;
-		return false;
-	}
-
-	@Override
-	public Peca capturar(Peca peca) {
-		if (verificaDest(peca.getX(), peca.getY()))
-			return super.capturar(peca);
-		return null;
+	public void capturar(Peca peca) {
+		super.capturar(peca);
 	}
 
 	public Boolean getMovimentado() {
@@ -69,61 +47,139 @@ public class Rei extends Peca implements AcaoPecaInterface {
 		Peca peca = null;
 		ArrayList<Posicao> lista = new ArrayList<Posicao>();
 		// Verifica para baixo
-		peca = pecas[xAux + 1][yAux];
-		if (peca == null || peca.getCor() != cor) {
-			lista.add(new Posicao(xAux+1, yAux));
+		if (xAux + 1 < 8) {
+			peca = pecas[xAux + 1][yAux];
+			if (peca == null || peca.getCor() != cor) {
+				lista.add(new Posicao(xAux + 1, yAux));
+			}
 		}
 		// Verifica para cima
 		if (xAux - 1 >= 0) {
 			peca = pecas[xAux - 1][yAux];
 			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux-1, yAux));
+				lista.add(new Posicao(xAux - 1, yAux));
 			}
 		}
 		// Verifica para direita
 		if (yAux + 1 < 8) {
 			peca = pecas[xAux][yAux + 1];
 			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux, yAux+1));
+				lista.add(new Posicao(xAux, yAux + 1));
 			}
 		}
 		// Verifica para esquerda
 		if (yAux - 1 >= 0) {
 			peca = pecas[xAux][yAux - 1];
 			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux, yAux-1));
+				lista.add(new Posicao(xAux, yAux - 1));
 			}
 		}
 		// Verifica canto inferior direito
 		if (xAux + 1 < 8 && yAux + 1 < 8) {
 			peca = pecas[xAux + 1][yAux + 1];
 			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux+1, yAux+1));
+				lista.add(new Posicao(xAux + 1, yAux + 1));
 			}
 		}
 		// Verifica canto superior direito
 		if (xAux - 1 >= 0 && yAux + 1 < 8) {
 			peca = pecas[xAux - 1][yAux + 1];
 			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux-1, yAux+1));
+				lista.add(new Posicao(xAux - 1, yAux + 1));
 			}
 		}
 		// Verifica canto inferior esquerdo
-		if (xAux + 1 >= 0 && yAux - 1 < 8) {
+		if (xAux + 1 < 8 && yAux - 1 >= 0) {
 			peca = pecas[xAux + 1][yAux - 1];
 			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux+1, yAux-1));
+				lista.add(new Posicao(xAux + 1, yAux - 1));
 			}
 		}
 		// Verifica canto superior esquerdo
 		if (xAux - 1 >= 0 && yAux - 1 < 8) {
 			peca = pecas[xAux - 1][yAux - 1];
 			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux-1, yAux-1));
+				lista.add(new Posicao(xAux - 1, yAux - 1));
 			}
 		}
 
 		return lista;
 	}
 
+	@Override
+	public ArrayList<Posicao> getPosicoesDefendidas(Peca[][] pecas) {
+		int xAux = x + 1;
+		int yAux = y;
+		Peca peca = null;
+		ArrayList<Posicao> lista = new ArrayList<Posicao>();
+		// Verifica para baixo
+		if (xAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca != null && peca.getCor() == cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		// Verifica para cima
+		xAux = x - 1;
+		if (xAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca != null && peca.getCor() == cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		// Verifica para direita
+		yAux = y + 1;
+		xAux = x;
+		if (yAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca != null && peca.getCor() == cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		// Verifica para esquerda
+		yAux = y - 1;
+		if (yAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca != null && peca.getCor() == cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		// Verifica canto inferior direito
+		xAux = x + 1;
+		yAux = y + 1;
+		if (xAux < 8 && yAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca != null && peca.getCor() == cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		// Verifica canto superior direito
+		xAux = x - 1;
+		yAux = y + 1;
+		if (xAux >= 0 && yAux < 8) {
+			peca = pecas[xAux][yAux];
+			if (peca != null && peca.getCor() == cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		// Verifica canto inferior esquerdo
+		xAux = x + 1;
+		yAux = y - 1;
+		if (xAux < 8 && yAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca != null && peca.getCor() == cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		// Verifica canto superior esquerdo
+		xAux = x - 1;
+		yAux = y - 1;
+		if (xAux >= 0 && yAux >= 0) {
+			peca = pecas[xAux][yAux];
+			if (peca != null && peca.getCor() == cor) {
+				lista.add(new Posicao(xAux, yAux));
+			}
+		}
+		return lista;
+	}
 }

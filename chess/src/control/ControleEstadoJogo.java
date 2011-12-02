@@ -2,16 +2,12 @@ package control;
 
 import java.util.ArrayList;
 
-import view.PecasCapturadasTableModel;
-
 import model.EstadoJogo;
-import model.Peca;
-import model.Tabuleiro;
 
 public class ControleEstadoJogo {
 	private ArrayList<EstadoJogo> listaEstados;
 
-	private Integer jogadaAtual;
+	private int jogadaAtual;
 
 	public ControleEstadoJogo() {
 		iniciar();
@@ -34,7 +30,7 @@ public class ControleEstadoJogo {
 
 	public EstadoJogo voltarEstado() {
 		jogadaAtual--;
-		return listaEstados.get(jogadaAtual);
+		return listaEstados.remove(jogadaAtual);
 	}
 
 	public EstadoJogo avancarEstado() {

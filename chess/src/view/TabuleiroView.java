@@ -3,12 +3,15 @@ package view;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -33,6 +36,7 @@ public class TabuleiroView extends JPanel implements ListenerPeca {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tabelaTabuleiro = null;
+	private JPanel panelInfo = null;
 	private Tabuleiro tabuleiro = null;
 	private Controle controle;
 	private static int larguraCasa = 55;
@@ -53,15 +57,12 @@ public class TabuleiroView extends JPanel implements ListenerPeca {
 			}
 
 			public void paint(Graphics g) {
-				System.out.println(getClass().getResource(
-						"/images/Tabuleiro.JPG"));
 				ImageIcon image = new ImageIcon(getClass().getResource(
 						"/images/Tabuleiro.JPG"));
 				Dimension d = getSize();
 				for (int x = 0; x < d.width; x += image.getIconWidth()) {
 					for (int y = 0; y < d.height; y += image.getIconHeight()) {
 						g.drawImage(image.getImage(), x, y, null, null);
-						System.out.println("ff");
 					}
 				}
 				super.paint(g);
@@ -87,6 +88,7 @@ public class TabuleiroView extends JPanel implements ListenerPeca {
 				larguraCasa);
 		tabelaTabuleiro.getColumnModel().getColumn(7).setPreferredWidth(
 				larguraCasa);
+		panelInfo = new JPanel();
 		iniciar();
 	}
 
@@ -149,7 +151,6 @@ public class TabuleiroView extends JPanel implements ListenerPeca {
 						JOptionPane.showMessageDialog(null,
 								"Lance Impossivel - Verifique a mensagem!");
 					}
-
 				} else {
 					// JOptionPane.showMessageDialog(null,"Mouse clicked !=1");
 				}
@@ -162,8 +163,10 @@ public class TabuleiroView extends JPanel implements ListenerPeca {
 		});
 
 		tabelaTabuleiro.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		this.add(tabelaTabuleiro);
-
+		this.add(panelInfo);
+		
 	}
 
 	@Override

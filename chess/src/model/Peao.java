@@ -1,14 +1,13 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-
-import model.interfaces.AcaoPecaInterface;
+import model.interfaces.IPeaceAction;
 import model.interfaces.ListenerPeca;
 
-public class Peao extends Peca implements AcaoPecaInterface {
+public class Peao extends Peca implements IPeaceAction {
 
 	private boolean movimentado = false;
 
@@ -18,8 +17,6 @@ public class Peao extends Peca implements AcaoPecaInterface {
 
 	@Override
 	public void movimentar(int xDest, int yDest) {
-		// TODO Auto-generated method stub
-
 		this.xOld = x;
 		this.yOld = y;
 		this.x = xDest;
@@ -28,24 +25,6 @@ public class Peao extends Peca implements AcaoPecaInterface {
 		for (ListenerPeca listener : listeners) {
 			listener.alterouPosicao(this);
 		}
-	}
-
-	@Override
-	public boolean verificaDest(int xDest, int yDest) {
-		if (!voltando(xDest, yDest))
-			return false;
-		int xDif = xDest - x;
-		int yDif = yDest - y;
-		if (xDif < 0)
-			xDif = xDif * (-1);
-		if (yDif < 0)
-			yDif = yDif * (-1);
-		if (yDif > 0)
-			return false;
-
-		if ((!movimentado && xDif > 2) || (movimentado && xDif > 1))
-			return false;
-		return true;
 	}
 
 	public boolean voltando(int xDest, int yDest) {
@@ -61,7 +40,7 @@ public class Peao extends Peca implements AcaoPecaInterface {
 	}
 
 	@Override
-	public Peca capturar(Peca peca) {
+	public void capturar(Peca peca) {
 		// Verifica se peï¿½o estï¿½ voltando
 		if (!voltando(peca.getX(), peca.getY()))
 			new IllegalArgumentException("Peão não pode voltar!");
@@ -76,7 +55,6 @@ public class Peao extends Peca implements AcaoPecaInterface {
 				listener.foiCapturada(peca);
 			}
 			movimentar(peca.getX(), peca.getY());
-			return peca;
 		} else {
 			throw new IllegalArgumentException("Impossível capturar!");
 		}
@@ -88,36 +66,108 @@ public class Peao extends Peca implements AcaoPecaInterface {
 		return super.isCheckOponente(pecas);
 	}
 
-	@Override
-	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
-		Peca peca = null;
+	private void checkDiagonalForAtaque(int linha, int coluna, Peca[][] pecas,
+			List<Posicao> lista) {
+		if (linha < 0 || coluna < 0 || linha > 7 || coluna > 7)
+			return;
+		Peca peca = pecas[linha][coluna];
+		if (peca != null && peca.getCor() != cor) {
+			lista.add(new Posicao(linha, coluna));
+		}
+	}
+
+	private void checkFrenteForAtaque(int linha, int coluna, Peca[][] pecas,
+			List<Posicao> lista) {
+		if (linha < 0 || coluna < 0 || linha > 7 || coluna > 7)
+			return;
+		Peca peca = pecas[linha][coluna];
+		if (peca == null || peca.getCor() == cor) {
+			lista.add(new Posicao(linha, coluna));
+		}
+	}
+
+	/**
+	 * Retorna as posições atacas por um peão Branco
+	 * 
+	 * @param pecas
+	 * @return
+	 */
+	private ArrayList<Posicao> getPosicoesAtacadasBranca(Peca[][] pecas) {
 		ArrayList<Posicao> lista = new ArrayList<Posicao>();
-		// Pretas
-		int xAux = x + 1;
-		if (cor == CorPeca.Branca)
-			xAux = x - 1;
-
+		// Diagonal esquerda
+		int xAux = x - 1;
 		int yAux = y - 1;
-		if (((cor == CorPeca.Preta && xAux >= 0) || (cor == CorPeca.Branca && xAux < 8))
-				&& yAux >= 0) {
-			peca = pecas[xAux][yAux];
-			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux, yAux));
-			}
-		}
-		xAux = x + 1;
-		if (cor == CorPeca.Branca)
-			xAux = x - 1;
+		checkDiagonalForAtaque(xAux, yAux, pecas, lista);
+		// Diagonal Direita
 		yAux = y + 1;
-		if (((cor == CorPeca.Preta && xAux < 8) || (cor == CorPeca.Branca && xAux >= 0))
-				&& yAux < 8) {
-			peca = pecas[xAux][yAux];
-			if (peca == null || peca.getCor() != cor) {
-				lista.add(new Posicao(xAux, yAux));
-			}
-		}
+		checkDiagonalForAtaque(xAux, yAux, pecas, lista);
 
+		// Frente
+		yAux = y;
+		checkFrenteForAtaque(xAux, yAux, pecas, lista);
+
+		if (!movimentado) {
+			xAux = x - 2;
+			checkFrenteForAtaque(xAux, yAux, pecas, lista);
+		}
 		return lista;
 	}
 
+	private ArrayList<Posicao> getPosicoesAtacadasPreta(Peca[][] pecas) {
+		ArrayList<Posicao> lista = new ArrayList<Posicao>();
+		// Diagonal esquerda - somente se tiver peça adversária
+		int xAux = x + 1;
+		int yAux = y - 1;
+		checkDiagonalForAtaque(xAux, yAux, pecas, lista);
+		// Diagonal direita - somente se tiver peça adversária
+		yAux = y + 1;
+		checkDiagonalForAtaque(xAux, yAux, pecas, lista);
+
+		// Frente
+		yAux = y;
+		checkFrenteForAtaque(xAux, yAux, pecas, lista);
+
+		if (!movimentado) {
+			xAux = x + 2;
+			checkFrenteForAtaque(xAux, yAux, pecas, lista);
+		}
+		return lista;
+	}
+
+	private ArrayList<Posicao> getPosicoesAtacadasByCor(Peca[][] pecas) {
+		if (cor == CorPeca.Branca)
+			return getPosicoesAtacadasBranca(pecas);
+		else
+			return getPosicoesAtacadasPreta(pecas);
+	}
+
+	/**
+	 * As posições atacadas pelo peão podem retornar 1,2,3 ou 4 casas.<br>
+	 * As posições atacadas do peão funciona da seguinte forma:<br>
+	 * É considerado as posições para onde ele pode se mover; <br>
+	 * Caso ainda não tenha se movimentado, são consideradas uma ou duas linhas
+	 * para frente na mesma coluna.<br>
+	 * Caso tenha um inimigo na primeira posição em sua diagonal para frente,
+	 * esta posição é considerada;
+	 * 
+	 * 
+	 */
+	@Override
+	public ArrayList<Posicao> getPosicoesAtacadas(Peca[][] pecas) {
+		return getPosicoesAtacadasByCor(pecas);
+	}
+
+	@Override
+	public ArrayList<Posicao> getPosicoesDefendidas(Peca[][] pecas) {
+		ArrayList<Posicao> lista = getPosicoesAtacadas(pecas);
+		Iterator<Posicao> it = lista.iterator();
+		Posicao p = null;
+		while (it.hasNext()) {
+			p = it.next();
+			if (p.getY() == y) {
+				it.remove();
+			}
+		}
+		return lista;
+	}
 }
